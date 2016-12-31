@@ -254,6 +254,35 @@ namespace AuTO
             }
         }
 
+        private void playerListbox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (playerListbox.SelectedItem != null)
+                    listboxMenu.Show(Cursor.Position);
+            }
+        }
+
+        /* Deletes player from listbox and from Challonge */
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /* Retrieve player's name w/o seeding */
+            int index = playerListbox.SelectedIndex;
+            string playerToDelete = playerListbox.SelectedItem.ToString();
+
+            /* Move all player below player to delete up a seed */
+            for (; index < playerListbox.Items.Count - 1; index++)
+            {
+                string newPlayer = playerListbox.Items[index + 1].ToString();
+                SwapSeeds(ref playerToDelete, ref newPlayer);
+
+                playerListbox.Items[index] = newPlayer;
+                playerListbox.Items[index + 1] = playerToDelete;
+            }
+
+            playerListbox.Items.RemoveAt(index);
+        }
+
         private void successLabel_OnTimerEvent(object sender, EventArgs e)
         {
             successLabel.Visible = false;

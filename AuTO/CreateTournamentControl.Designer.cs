@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.conentPanel = new System.Windows.Forms.Panel();
             this.mainSplit = new System.Windows.Forms.SplitContainer();
+            this.successLabel = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
             this.errorLabel = new System.Windows.Forms.Label();
             this.hintLabel = new System.Windows.Forms.Label();
@@ -52,7 +54,8 @@
             this.listPlayerLabel = new System.Windows.Forms.Label();
             this.playerListbox = new System.Windows.Forms.ListBox();
             this.startButton = new System.Windows.Forms.Button();
-            this.successLabel = new System.Windows.Forms.Label();
+            this.listboxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.conentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
@@ -66,6 +69,7 @@
             this.playerSplit.Panel1.SuspendLayout();
             this.playerSplit.Panel2.SuspendLayout();
             this.playerSplit.SuspendLayout();
+            this.listboxMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // conentPanel
@@ -113,6 +117,20 @@
             this.mainSplit.Size = new System.Drawing.Size(754, 428);
             this.mainSplit.SplitterDistance = 541;
             this.mainSplit.TabIndex = 0;
+            // 
+            // successLabel
+            // 
+            this.successLabel.AutoSize = true;
+            this.successLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.successLabel.ForeColor = System.Drawing.Color.ForestGreen;
+            this.successLabel.Location = new System.Drawing.Point(177, 326);
+            this.successLabel.Name = "successLabel";
+            this.successLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.successLabel.Size = new System.Drawing.Size(70, 16);
+            this.successLabel.TabIndex = 17;
+            this.successLabel.Text = "Success!";
+            this.successLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.successLabel.Visible = false;
             // 
             // statusLabel
             // 
@@ -366,6 +384,7 @@
             this.playerListbox.Size = new System.Drawing.Size(209, 317);
             this.playerListbox.TabIndex = 0;
             this.playerListbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.playerListbox_KeyDown);
+            this.playerListbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.playerListbox_MouseDown);
             // 
             // startButton
             // 
@@ -383,19 +402,19 @@
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // successLabel
+            // listboxMenu
             // 
-            this.successLabel.AutoSize = true;
-            this.successLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.successLabel.ForeColor = System.Drawing.Color.ForestGreen;
-            this.successLabel.Location = new System.Drawing.Point(177, 342);
-            this.successLabel.Name = "successLabel";
-            this.successLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.successLabel.Size = new System.Drawing.Size(70, 16);
-            this.successLabel.TabIndex = 17;
-            this.successLabel.Text = "Success!";
-            this.successLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.successLabel.Visible = false;
+            this.listboxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem});
+            this.listboxMenu.Name = "listboxMenu";
+            this.listboxMenu.Size = new System.Drawing.Size(108, 26);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // CreateTournamentControl
             // 
@@ -419,6 +438,7 @@
             this.playerSplit.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.playerSplit)).EndInit();
             this.playerSplit.ResumeLayout(false);
+            this.listboxMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -450,5 +470,7 @@
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Label successLabel;
+        private System.Windows.Forms.ContextMenuStrip listboxMenu;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

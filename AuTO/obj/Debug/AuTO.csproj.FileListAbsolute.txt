@@ -26,3 +26,4 @@ C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.Properties.Resources.resources
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.csproj.GenerateResource.Cache
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.exe
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.pdb
+C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.EditTextControl.resources

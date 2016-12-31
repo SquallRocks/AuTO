@@ -81,6 +81,12 @@
     <Compile Include="CreateTournamentControl.Designer.cs">
       <DependentUpon>CreateTournamentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditTextControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditTextControl.Designer.cs">
+      <DependentUpon>EditTextControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="identTemp.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     <Compile Include="PyChallonge.cs" />
     <EmbeddedResource Include="CreateTournamentControl.resx">
       <DependentUpon>CreateTournamentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditTextControl.resx">
+      <DependentUpon>EditTextControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="identTemp.resx">
       <DependentUpon>identTemp.cs</DependentUpon>
