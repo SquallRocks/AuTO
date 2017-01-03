@@ -38,13 +38,15 @@
             this.idenPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.idenPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.idenPanel.Controls.Add(this.headerLabel);
+            this.idenPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.idenPanel.Location = new System.Drawing.Point(0, 0);
             this.idenPanel.Name = "idenPanel";
-            this.idenPanel.Size = new System.Drawing.Size(756, 64);
+            this.idenPanel.Size = new System.Drawing.Size(754, 65);
             this.idenPanel.TabIndex = 2;
             // 
             // headerLabel
             // 
+            this.headerLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.headerLabel.AutoSize = true;
             this.headerLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.headerLabel.Location = new System.Drawing.Point(2, 8);

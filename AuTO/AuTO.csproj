@@ -106,9 +106,21 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MatchDisplayControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MatchDisplayControl.Designer.cs">
+      <DependentUpon>MatchDisplayControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PyChallonge.cs" />
+    <Compile Include="TournamentViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TournamentViewControl.Designer.cs">
+      <DependentUpon>TournamentViewControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CreateTournamentControl.resx">
       <DependentUpon>CreateTournamentControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,6 +136,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MatchDisplayControl.resx">
+      <DependentUpon>MatchDisplayControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -134,6 +149,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TournamentViewControl.resx">
+      <DependentUpon>TournamentViewControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="bin\Debug\AuTO.exe.config" />
     <None Include="packages.config" />
     <None Include="packages\Microsoft.AspNet.WebApi.Client.5.2.3\Microsoft.AspNet.WebApi.Client.5.2.3.nupkg" />
