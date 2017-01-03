@@ -61,9 +61,9 @@ namespace AuTO
 
             HttpResponseMessage response = await client.PostAsJsonAsync(tURL, t);
             string result = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("RESULT FROM CREATING TOURNAMENT: \n{0}", result);
+            //Console.WriteLine("RESULT FROM CREATING TOURNAMENT: \n{0}", result);
 
-            if (result.Contains("URL has already been taken"))
+            if (result.Contains("taken"))
                 return -100;
 
             if (!response.IsSuccessStatusCode)
@@ -91,7 +91,7 @@ namespace AuTO
 
             HttpResponseMessage response = await client.GetAsync(tURL);
             string result = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
+            //Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
 
             if (!response.IsSuccessStatusCode)
                 return -404;
@@ -112,7 +112,7 @@ namespace AuTO
             /* Format JSON to send to server */
             HttpResponseMessage response = await client.PostAsJsonAsync(tURL, p);
             string result = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("RESULT: \n{0}", result);
+            //Console.WriteLine("RESULT: \n{0}", result);
 
             if (!response.IsSuccessStatusCode)
                 return -200;

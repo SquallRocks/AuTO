@@ -15,13 +15,13 @@ namespace AuTO
     public partial class CreateTournamentControl : UserControl
     {
         private int tournamentID;
-        private Dictionary<string, int> playerIDs;
+        private Dictionary<int, string> playerIDs;
 
         public CreateTournamentControl()
         {
             InitializeComponent();
             tournamentID = 0;
-            playerIDs = new Dictionary<string, int>();
+            playerIDs = new Dictionary<int, string>();
         }
 
         #region Helper Backend Functions
@@ -142,14 +142,14 @@ namespace AuTO
 
             /* Set up tournament attributes */
             Tournament t = new Tournament();
-            t.name = nameTextbox.Text;
-            t.subdomain = subTextbox.Text;
-            t.url = urlTextbox.Text;
+            t.Name = nameTextbox.Text;
+            t.Subdomain = subTextbox.Text;
+            t.URL = urlTextbox.Text;
 
             if (singleRD.Checked)
-                t.type = "single elimination";
+                t.Type = "single elimination";
             else
-                t.type = "double elimination";
+                t.Type = "double elimination";
 
             string[] players = new string[playerListbox.Items.Count];
             for (int k = 0; k < players.Length; k++)
@@ -168,9 +168,9 @@ namespace AuTO
             if (validated < 0)
             {
                 if (validated == -100)
-                    DisplayClientError("Unhandled error on client side.");
-                else if (validated == -200)
                     DisplayClientError("Tournament with URL already exists!");
+                else if (validated == -200)
+                    DisplayClientError("Unhandled error on client side.");
                 return;
             }
             else
@@ -191,8 +191,8 @@ namespace AuTO
             Participant p = new Participant();
             for (int k = 0; k < players.Length; k++)
             {
-                p.name = players[k];
-                p.seed = k + 1;
+                p.Name = players[k];
+                p.Seed = k + 1;
 
                 validated = await Challonge.AddPlayer(tournamentID, p);
 
@@ -204,9 +204,9 @@ namespace AuTO
                 }
                 else
                 {
-                    playerIDs.Add(p.name, validated);
+                    playerIDs.Add(validated, p.Name);
                     DisplayClientSuccess(String.Format("Successfuilly added {0} to {1}",
-                                         p.name, t.name), 3);
+                                         p.Name, t.Name), 3);
                 }
             }
 
