@@ -14,9 +14,14 @@ namespace AuTO
 {
     public partial class CreateTournamentControl : UserControl
     {
+        private int tournamentID;
+        private Dictionary<string, int> playerIDs;
+
         public CreateTournamentControl()
         {
             InitializeComponent();
+            tournamentID = 0;
+            playerIDs = new Dictionary<string, int>();
         }
 
         #region Helper Backend Functions
@@ -157,6 +162,8 @@ namespace AuTO
                 players[k] = string.Join(".", components, 1, components.Length - 1 );
             }
 
+            /* For tournament creation and adding players, validated also returns
+             * the specified tournamnet or player ID */
             int validated = await Challonge.CreateTournament(t);
             if (validated < 0)
             {
@@ -166,9 +173,14 @@ namespace AuTO
                     DisplayClientError("Tournament with URL already exists!");
                 return;
             }
+            else
+                tournamentID = validated;
+
+            /* DEBUGGING */
+            //Console.WriteLine("TOURNAMENT ID: {0}", tournamentID);
 
             /* Make sure tournament is retrievable */
-            validated = await Challonge.GetTournament(t);
+            validated = await Challonge.GetTournament(tournamentID);
             if (validated < 0)
             {
                 DisplayClientError("Tournament not found! Client side error.");
@@ -181,22 +193,32 @@ namespace AuTO
             {
                 p.name = players[k];
                 p.seed = k + 1;
-                validated = await Challonge.AddPlayer(t, p);
+
+                validated = await Challonge.AddPlayer(tournamentID, p);
 
                 if (validated < 0)
                 {
+                    await Challonge.DeleteTournament(tournamentID);
                     DisplayClientError("Could not add player; client side error.");
                     return;
                 }
                 else
+                {
+                    playerIDs.Add(p.name, validated);
                     DisplayClientSuccess(String.Format("Successfuilly added {0} to {1}",
                                          p.name, t.name), 3);
+                }
             }
 
+            /*DEBUGGING */
+            //foreach (int x in playerIDs.Values)
+            //    Console.WriteLine("PlayerIDs: {0}", x);
+
             /* Start Tournament */
-            validated = await Challonge.StartTournament(t);
+            validated = await Challonge.StartTournament(tournamentID);
             if (validated < 0)
             {
+                await Challonge.DeleteTournament(tournamentID);
                 DisplayClientError("Could not start; client side error.");
                 return;
             }

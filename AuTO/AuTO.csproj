@@ -93,6 +93,7 @@
     <Compile Include="identTemp.Designer.cs">
       <DependentUpon>identTemp.cs</DependentUpon>
     </Compile>
+    <Compile Include="JSONStructs.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
