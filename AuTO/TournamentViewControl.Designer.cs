@@ -47,11 +47,13 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mainPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainPanel.Controls.Add(this.matchesPanel);
             this.mainPanel.Controls.Add(this.bottomPanel);
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(756, 435);
@@ -59,7 +61,9 @@
             // 
             // matchesPanel
             // 
-            this.matchesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.matchesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.matchesPanel.Controls.Add(this.tourneyTablePanel);
             this.matchesPanel.Location = new System.Drawing.Point(0, -2);
             this.matchesPanel.Name = "matchesPanel";
@@ -68,9 +72,12 @@
             // 
             // tourneyTablePanel
             // 
+            this.tourneyTablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tourneyTablePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tourneyTablePanel.ColumnCount = 1;
-            this.tourneyTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 757F));
+            this.tourneyTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 758F));
             this.tourneyTablePanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.tourneyTablePanel.Location = new System.Drawing.Point(0, 0);
             this.tourneyTablePanel.Margin = new System.Windows.Forms.Padding(0);
@@ -85,7 +92,9 @@
             // 
             // bottomPanel
             // 
-            this.bottomPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.bottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomPanel.Controls.Add(this.tablePanel);
             this.bottomPanel.Location = new System.Drawing.Point(-1, 314);
             this.bottomPanel.Name = "bottomPanel";
@@ -94,8 +103,7 @@
             // 
             // tablePanel
             // 
-            this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tablePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tablePanel.ColumnCount = 3;
@@ -118,9 +126,10 @@
             // 
             // longListview
             // 
+            this.longListview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.longListview.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.longListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.longListview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.longListview.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.longListview.GridLines = true;
             this.longListview.Location = new System.Drawing.Point(503, 22);
@@ -132,9 +141,10 @@
             // 
             // ongoingListview
             // 
+            this.ongoingListview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ongoingListview.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ongoingListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ongoingListview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ongoingListview.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ongoingListview.GridLines = true;
             this.ongoingListview.Location = new System.Drawing.Point(252, 22);
@@ -146,45 +156,49 @@
             // 
             // longLabel
             // 
+            this.longLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.longLabel.AutoSize = true;
-            this.longLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.longLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.longLabel.Location = new System.Drawing.Point(506, 1);
+            this.longLabel.Location = new System.Drawing.Point(506, 5);
             this.longLabel.Name = "longLabel";
-            this.longLabel.Size = new System.Drawing.Size(246, 20);
+            this.longLabel.Size = new System.Drawing.Size(246, 16);
             this.longLabel.TabIndex = 2;
             this.longLabel.Text = "Matches Taking Too Long";
             this.longLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ongoingLabel
             // 
+            this.ongoingLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ongoingLabel.AutoSize = true;
-            this.ongoingLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ongoingLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ongoingLabel.Location = new System.Drawing.Point(255, 1);
+            this.ongoingLabel.Location = new System.Drawing.Point(255, 5);
             this.ongoingLabel.Name = "ongoingLabel";
-            this.ongoingLabel.Size = new System.Drawing.Size(244, 20);
+            this.ongoingLabel.Size = new System.Drawing.Size(244, 16);
             this.ongoingLabel.TabIndex = 1;
             this.ongoingLabel.Text = "Ongoing Matches";
             this.ongoingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // upcomingLabel
             // 
+            this.upcomingLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.upcomingLabel.AutoSize = true;
-            this.upcomingLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.upcomingLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.upcomingLabel.Location = new System.Drawing.Point(4, 1);
+            this.upcomingLabel.Location = new System.Drawing.Point(4, 5);
             this.upcomingLabel.Name = "upcomingLabel";
-            this.upcomingLabel.Size = new System.Drawing.Size(244, 20);
+            this.upcomingLabel.Size = new System.Drawing.Size(244, 16);
             this.upcomingLabel.TabIndex = 0;
             this.upcomingLabel.Text = "Upcoming Matches";
             this.upcomingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // upcomingListview
             // 
+            this.upcomingListview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.upcomingListview.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.upcomingListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.upcomingListview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.upcomingListview.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.upcomingListview.GridLines = true;
             this.upcomingListview.Location = new System.Drawing.Point(1, 22);

@@ -25,26 +25,32 @@ namespace AuTO
         public void SetupTournamentView (int rounds)
         {
             /* Set number of columns needed at their size */
+            tourneyTablePanel.Dock = DockStyle.None;
             tourneyTablePanel.ColumnCount = rounds;
             tourneyTablePanel.Size = new Size(rounds * 200, 110 * rounds);  
 
             /* Set column and row height/width */
-            //tourneyTablePanel.ColumnStyles[0].Width = 35;
             TableLayoutStyleCollection styles = tourneyTablePanel.ColumnStyles;
             foreach (ColumnStyle c in styles)
                 c.Width = 200;
 
+            /* Add matches */
             for (int k = 0; k < rounds; k++)
             {
+                Panel p = new Panel();
+                tourneyTablePanel.Controls.Add(p, k, 1);
+                p.Dock = DockStyle.Fill;
+
                 FlowLayoutPanel f = new FlowLayoutPanel();
-                f.Name = "FlowLayout Round "  + k;
+                f.Name = "FlowLayout Round " + (rounds - k);
                 f.Margin = new Padding(0, 0, 0, 0);
-                f.Dock = DockStyle.Fill;
+                f.AutoSize = false;
                 f.AutoScroll = true;
+                f.Size = new Size(f.Size.Width, rounds * 110);
                 f.FlowDirection = FlowDirection.TopDown;
                 f.WrapContents = false;
-                f.VerticalScroll.Visible = false;
-                f.HorizontalScroll.Visible = false;
+                f.MouseDown += tourneyTablePanel_MouseDown;
+                f.MouseMove += matchView_MouseMove;
 
                 for (int j = 0; j < rounds; j++)        // would be number of matches in that round
                 { 
@@ -52,10 +58,13 @@ namespace AuTO
                     m.Name = "Round " + k + " match " + j;
                     m.SetPlayer1Name("Player 1");
                     m.SetPlayer2Name("Player 2");
+
                     f.Controls.Add(m);
                 }
 
-                tourneyTablePanel.Controls.Add(f, k, 1);
+                p.Controls.Add(f);
+
+                //tourneyTablePanel.Controls.Add(f, k, 1);
             }
 
             /* Add Round headers to each column */
@@ -92,7 +101,20 @@ namespace AuTO
                 if (pos < 20)
                     tourneyTablePanel.Left = pos;
             }
-        }     
+        }
+
+        /* When user drags mouse and left clicks, emulate dragging of horizontal scrollbar */
+        private void matchView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                FlowLayoutPanel control = sender as FlowLayoutPanel;
+                int pos = e.Y + control.Top - tableScrollPoint.Y;
+                pos = (int)Math.Min(pos, 20);
+                if (pos > -control.Size.Height + 500)
+                control.Top = pos;
+            }
+        }    
 
         /* FOR DEBUGGING PURPOSES
          * Find what control was clicked.

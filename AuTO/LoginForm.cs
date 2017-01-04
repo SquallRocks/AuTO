@@ -16,6 +16,7 @@ namespace AuTO
         public loginForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         // Authenticate username and api key
