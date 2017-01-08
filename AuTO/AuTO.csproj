@@ -33,12 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IronPython">
-      <HintPath>..\..\..\..\Program Files (x86)\IronPython-2.7.6.3\IronPython.dll</HintPath>
-    </Reference>
-    <Reference Include="IronPython.Modules">
-      <HintPath>..\..\..\..\Program Files (x86)\IronPython-2.7.6.3\IronPython.Modules.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Dynamic">
       <HintPath>..\..\..\..\Program Files (x86)\IronPython-2.7.6.3\Microsoft.Dynamic.dll</HintPath>
     </Reference>
