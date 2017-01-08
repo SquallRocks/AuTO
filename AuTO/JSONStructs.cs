@@ -48,6 +48,8 @@ namespace AuTO
 
         [JsonProperty("suggested_play_order")]
         public int PlayOrder;
+
+        public int Setup;
     }
 
     /*

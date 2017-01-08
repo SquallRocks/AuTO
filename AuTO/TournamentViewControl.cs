@@ -21,8 +21,6 @@ namespace AuTO
         {
             InitializeComponent();
             tableScrollPoint = new Point();
-
-            SetupTournamentView(15);
         }
 
         public TournamentViewControl(Dictionary<int, Match> matches, int setups)
