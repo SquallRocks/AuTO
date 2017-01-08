@@ -42,6 +42,8 @@ namespace AuTO
             return true;
         }
 
+        #region Tournament
+
         /* Sends JSON to Challonge to create a tournament. Returns a status code. 
          * 200 = OK
          * -100 = URL already taken
@@ -69,12 +71,15 @@ namespace AuTO
             if (!response.IsSuccessStatusCode)
                 return -200;
 
-            /* Retrieve tournament ID */
-            /* NOTE: Not a very elegant way to retrieve JSON value */
-            int id;
+            /* Retrieve tournament ID
+             * NOTE: In order to traverse JSON, need to retrieve correct level first
+             */ 
             JObject json = JObject.Parse(result);
-            JToken token = json.First.First.First.First;
-            if (!Int32.TryParse(token.ToString(), out id))
+            JToken tourneyToken = json.SelectToken("tournament");
+            JToken token = tourneyToken.SelectToken("id");
+
+            int id = RetrieveIntFromString(token.ToString());
+            if (id == -200)
                 return -300;
             else
                 return id;
@@ -118,11 +123,12 @@ namespace AuTO
                 return -200;
 
             /* Retrieve participant ID */
-            /* NOTE: Not a very elegant way to retrieve JSON value */
-            int id;
             JObject json = JObject.Parse(result);
-            JToken token = json.First.First.First.First;
-            if (!Int32.TryParse(token.ToString(), out id))
+            JToken tourneyToken = json.SelectToken("participant");
+            JToken token = tourneyToken.SelectToken("id");
+
+            int id = RetrieveIntFromString(token.ToString());
+            if (id == -200)
                 return -300;
             else
                 return id;
@@ -139,6 +145,9 @@ namespace AuTO
                                BASE_URL, t_id));
 
             HttpResponseMessage response = await client.PostAsJsonAsync(tURL, new Tournament());
+            string result = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("RESULT: \n{0}", result);
+
             if (!response.IsSuccessStatusCode)
                 return -200;
 
@@ -156,5 +165,81 @@ namespace AuTO
 
             return 200;
         }
+
+        #endregion
+
+        #region Match
+
+        public static async Task<Dictionary<int, Match>> RetrieveMatches(int t_id)
+        {
+            Uri tURL = new Uri(String.Format("{0}/tournaments/{1}/matches.json",
+                               BASE_URL, t_id));
+
+            HttpResponseMessage response = await client.GetAsync(tURL);
+            string result = await response.Content.ReadAsStringAsync();
+            //Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            /* Retrieve Matches, parse valuable info into matches, and add them into dictionary */
+            Dictionary<int, Match> matches = new Dictionary<int, Match>();
+            JArray json = JArray.Parse(result);
+            foreach (JObject o in json.Children<JObject>())
+            {
+                foreach (JToken t in o.SelectTokens("match"))
+                {
+                    Match m = new Match();
+                    int id = RetrieveIntFromString(t.SelectToken("id").ToString());
+                    if (id == -200)
+                        return null;
+
+                    int p1ID = RetrieveIntFromString(t.SelectToken("player1_id").ToString());
+                    if (p1ID == -200)
+                        return null;
+
+                    int p2ID = RetrieveIntFromString(t.SelectToken("player2_id").ToString());
+                    if (p2ID == -200)
+                        return null;
+
+                    int round = RetrieveIntFromString(t.SelectToken("round").ToString());
+                    if (round == -200)
+                        return null;
+
+                    int order = RetrieveIntFromString(t.SelectToken("suggested_play_order").ToString());
+                    if (order == -200)
+                        return null;
+
+                    m.ID = id;
+                    m.Player1ID = p1ID;
+                    m.Player2ID = p2ID;
+                    m.Round = round;
+                    m.State = t.SelectToken("state").ToString();
+                    m.PlayOrder = order;
+                    matches.Add(m.ID, m);
+                }
+            }
+
+            return matches;
+        }
+
+        #endregion
+
+        #region Helper Functions
+
+        /* Retrieve numerical value of string */
+        private static int RetrieveIntFromString (string s_int)
+        {
+            if (string.IsNullOrEmpty(s_int))
+                return 0;
+
+            int value;
+            if (!Int32.TryParse(s_int, out value))
+                return -200;
+
+            return value;
+        }
+
+        #endregion
     }
 }

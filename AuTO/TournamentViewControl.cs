@@ -13,13 +13,25 @@ namespace AuTO
     public partial class TournamentViewControl : UserControl
     {
         private Point tableScrollPoint;
+        private Dictionary<int, Match> matches;
+        private int setups;
 
+        /* For testing */
         public TournamentViewControl()
         {
             InitializeComponent();
             tableScrollPoint = new Point();
 
             SetupTournamentView(15);
+        }
+
+        public TournamentViewControl(Dictionary<int, Match> matches, int setups)
+        {
+            InitializeComponent();
+
+            tableScrollPoint = new Point();
+            this.matches = matches;
+            this.setups = setups;
         }
 
         public void SetupTournamentView (int rounds)

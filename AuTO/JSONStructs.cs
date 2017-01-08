@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace AuTO
 {
-    /* Objects for JSONs */
+    /* Objects for JSON serialization/deserialization */
     public class Tournament
     {
         [JsonProperty("name")]
@@ -44,6 +44,22 @@ namespace AuTO
         public int Round;
 
         [JsonProperty("state")]
-        public bool State;
+        public string State;
+
+        [JsonProperty("suggested_play_order")]
+        public int PlayOrder;
+    }
+
+    /*
+     * NOTE: Score must be formatted in this way:
+     * 1-3, player 1 score first
+     */ 
+    public class ScoreReport
+    {
+        [JsonProperty("scores_csv")]
+        public string Score;
+
+        [JsonProperty("winner_id")]
+        public int WinnerID;
     }
 }

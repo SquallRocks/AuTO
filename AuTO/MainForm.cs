@@ -12,9 +12,6 @@ namespace AuTO
 {
     public partial class mainForm : Form
     {
-        /* Persistent data trhough forms */
-        public Tournament tourney;
-
         public mainForm()
         {
             InitializeComponent();

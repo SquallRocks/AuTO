@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.contentPanel = new System.Windows.Forms.Panel();
             this.mainSplit = new System.Windows.Forms.SplitContainer();
+            this.setupUpDown = new System.Windows.Forms.NumericUpDown();
+            this.setupLabel = new System.Windows.Forms.Label();
             this.successLabel = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
             this.errorLabel = new System.Windows.Forms.Label();
@@ -61,6 +63,7 @@
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
             this.mainSplit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.setupUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightSplit)).BeginInit();
             this.rightSplit.Panel1.SuspendLayout();
             this.rightSplit.Panel2.SuspendLayout();
@@ -92,6 +95,8 @@
             // 
             // mainSplit.Panel1
             // 
+            this.mainSplit.Panel1.Controls.Add(this.setupUpDown);
+            this.mainSplit.Panel1.Controls.Add(this.setupLabel);
             this.mainSplit.Panel1.Controls.Add(this.successLabel);
             this.mainSplit.Panel1.Controls.Add(this.statusLabel);
             this.mainSplit.Panel1.Controls.Add(this.errorLabel);
@@ -119,6 +124,47 @@
             this.mainSplit.SplitterDistance = 541;
             this.mainSplit.TabIndex = 0;
             // 
+            // setupUpDown
+            // 
+            this.setupUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.setupUpDown.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.setupUpDown.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setupUpDown.Location = new System.Drawing.Point(180, 191);
+            this.setupUpDown.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.setupUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.setupUpDown.Name = "setupUpDown";
+            this.setupUpDown.Size = new System.Drawing.Size(63, 32);
+            this.setupUpDown.TabIndex = 19;
+            this.setupUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // setupLabel
+            // 
+            this.setupLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.setupLabel.AutoSize = true;
+            this.setupLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setupLabel.Location = new System.Drawing.Point(14, 195);
+            this.setupLabel.Name = "setupLabel";
+            this.setupLabel.Size = new System.Drawing.Size(74, 18);
+            this.setupLabel.TabIndex = 18;
+            this.setupLabel.Tag = "";
+            this.setupLabel.Text = "*Setups: ";
+            // 
             // successLabel
             // 
             this.successLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -127,7 +173,7 @@
             this.successLabel.AutoSize = true;
             this.successLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.successLabel.ForeColor = System.Drawing.Color.ForestGreen;
-            this.successLabel.Location = new System.Drawing.Point(177, 326);
+            this.successLabel.Location = new System.Drawing.Point(177, 346);
             this.successLabel.Name = "successLabel";
             this.successLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.successLabel.Size = new System.Drawing.Size(70, 16);
@@ -144,7 +190,7 @@
             this.statusLabel.AutoSize = true;
             this.statusLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.ForeColor = System.Drawing.Color.Black;
-            this.statusLabel.Location = new System.Drawing.Point(177, 249);
+            this.statusLabel.Location = new System.Drawing.Point(177, 269);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.statusLabel.Size = new System.Drawing.Size(240, 16);
@@ -161,7 +207,7 @@
             this.errorLabel.AutoSize = true;
             this.errorLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.errorLabel.Location = new System.Drawing.Point(177, 326);
+            this.errorLabel.Location = new System.Drawing.Point(177, 346);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.errorLabel.Size = new System.Drawing.Size(165, 16);
@@ -189,12 +235,13 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cancelButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(346, 293);
+            this.cancelButton.Location = new System.Drawing.Point(346, 313);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(162, 30);
             this.cancelButton.TabIndex = 13;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // clearButton
             // 
@@ -203,7 +250,7 @@
             this.clearButton.FlatAppearance.BorderSize = 5;
             this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearButton.Location = new System.Drawing.Point(177, 293);
+            this.clearButton.Location = new System.Drawing.Point(177, 313);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(162, 30);
             this.clearButton.TabIndex = 12;
@@ -247,7 +294,7 @@
             this.addPlayerButton.FlatAppearance.BorderSize = 5;
             this.addPlayerButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addPlayerButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addPlayerButton.Location = new System.Drawing.Point(433, 216);
+            this.addPlayerButton.Location = new System.Drawing.Point(433, 236);
             this.addPlayerButton.Name = "addPlayerButton";
             this.addPlayerButton.Size = new System.Drawing.Size(75, 30);
             this.addPlayerButton.TabIndex = 9;
@@ -262,7 +309,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.playerTextbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.playerTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playerTextbox.Location = new System.Drawing.Point(177, 216);
+            this.playerTextbox.Location = new System.Drawing.Point(177, 236);
             this.playerTextbox.Name = "playerTextbox";
             this.playerTextbox.Size = new System.Drawing.Size(249, 30);
             this.playerTextbox.TabIndex = 8;
@@ -313,7 +360,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.participantLabel.AutoSize = true;
             this.participantLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.participantLabel.Location = new System.Drawing.Point(14, 219);
+            this.participantLabel.Location = new System.Drawing.Point(14, 239);
             this.participantLabel.Name = "participantLabel";
             this.participantLabel.Size = new System.Drawing.Size(98, 18);
             this.participantLabel.TabIndex = 4;
@@ -480,6 +527,7 @@
             this.mainSplit.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).EndInit();
             this.mainSplit.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.setupUpDown)).EndInit();
             this.rightSplit.Panel1.ResumeLayout(false);
             this.rightSplit.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rightSplit)).EndInit();
@@ -523,5 +571,7 @@
         private System.Windows.Forms.ContextMenuStrip listboxMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.TextBox subTextbox;
+        private System.Windows.Forms.Label setupLabel;
+        private System.Windows.Forms.NumericUpDown setupUpDown;
     }
 }

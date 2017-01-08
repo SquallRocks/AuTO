@@ -16,6 +16,7 @@ namespace AuTO
     {
         private int tournamentID;
         private Dictionary<int, string> playerIDs;
+        private int setups;
 
         public CreateTournamentControl()
         {
@@ -98,6 +99,18 @@ namespace AuTO
             t.Enabled = true;
         }
 
+        private void Clear()
+        {
+            nameTextbox.Clear();
+            singleRD.Checked = false;
+            doubleRD.Checked = false;
+            subTextbox.Clear();
+            urlTextbox.Clear();
+            setupUpDown.Value = 1;
+            playerTextbox.Clear();
+            playerListbox.Items.Clear();
+        }
+
         #endregion
 
         #region Events
@@ -151,6 +164,7 @@ namespace AuTO
             else
                 t.Type = "double elimination";
 
+            setups = (int)setupUpDown.Value;
             string[] players = new string[playerListbox.Items.Count];
             for (int k = 0; k < players.Length; k++)
             {
@@ -223,7 +237,23 @@ namespace AuTO
                 return;
             }
             else
+            {
                 DisplayClientSuccess("Tournament successfully started!", 10);
+
+                Dictionary<int, Match> matches = await Challonge.RetrieveMatches(tournamentID);
+                if (matches == null)
+                {
+                    DisplayClientError("Client side error retrieving matches");
+                    return;
+                }
+
+                this.Hide();
+                this.Dispose();
+
+                TournamentViewControl tourneyView = new TournamentViewControl(matches, setups);
+                tourneyView.Location = this.Location;
+                tourneyView.Visible = true;
+            }
         }
 
         /* If user presses shift + up/down, shift the selected index up or down,
@@ -313,13 +343,24 @@ namespace AuTO
         /* Clear all information from wizard to start fresh*/
         private void clearButton_Click(object sender, EventArgs e)
         {
-            nameTextbox.Clear();
-            singleRD.Checked = false;
-            doubleRD.Checked = false;
-            subTextbox.Clear();
-            urlTextbox.Clear();
-            playerTextbox.Clear();
-            playerListbox.Items.Clear();
+            if (tournamentID == 0)
+                Clear();
+            else
+                DisplayClientError("Tournament already started; cannot clear.");
+        }
+
+        /* If tournament created in challonge, delete it, clear all fields, and
+         * go to home screen */
+        private async void cancelButton_Click(object sender, EventArgs e)
+        {
+            if (tournamentID != 0)
+            {
+                await Challonge.DeleteTournament(tournamentID);
+            }
+
+            Clear();
+
+            //TOOD: Hide this control and go to a home screen once a home screen made
         }
 
         #endregion
