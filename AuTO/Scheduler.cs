@@ -10,8 +10,12 @@ namespace AuTO
     {
         #region Fields
 
+        public int MaxWinnerRounds;
+        public int MaxLoserRounds;
+
         private int tournamentID;
         private int maxSetups;
+        
         private Dictionary<int, Match> allMatches;
         private List<Match> openMatches;
         private List<Match> pendingMatches;
@@ -25,7 +29,13 @@ namespace AuTO
         {
             tournamentID = t_id;
             maxSetups = setups;
+            MaxWinnerRounds = 0;
+            MaxLoserRounds = 0;
             allMatches = matches;
+
+            /* DEBUGGING */
+            //foreach (Match m in matches.Values)
+            //    Console.WriteLine("Match: {0} Round: {1} Order: {2}", m.ID, m.Round, m.PlayOrder);
 
             openMatches = new List<Match>();
             pendingMatches = new List<Match>();
@@ -39,9 +49,17 @@ namespace AuTO
         /* Sorts a match based on play order, lesser numbers first
          * i.e. (3, 5, 2, 7) => (2, 3, 5, 7)
          */ 
-        private void SortAscendingNumbers (List<Match> matches)
+        private void SortAscendingNumbers (ref List<Match> matches)
         {
             matches.Sort((x, y) => y.PlayOrder.CompareTo(x.PlayOrder));  
+        }
+
+        /* Sorts a match based on play order, greater numbers first
+         * i.e. (3, 5, 2, 7) => (7, 5, 3, 2)
+         */ 
+        private void SortDescendingNumbers (ref List<Match> matches)
+        {
+            matches.Sort((x, y) => x.PlayOrder.CompareTo(y.PlayOrder));
         }
 
         /* Separates matches into open and pending pools */
@@ -57,8 +75,37 @@ namespace AuTO
                     Console.WriteLine("There's another state we did not know of");
             }
 
-            SortAscendingNumbers(openMatches);
-            SortAscendingNumbers(pendingMatches);
+            SortAscendingNumbers(ref openMatches);
+            SortAscendingNumbers(ref pendingMatches);
+        }
+
+        /* Splits matches into winner's (positive rounds) and loser's (negative rounds).
+         * Also determines max number of rounds needed for each bracket. */
+        public void SplitMatchesByBrackets (ref List<Match> winners, ref List<Match> losers)
+        {
+            int maxWinners = 0;
+            int maxLosers = 0;
+            foreach (Match m in allMatches.Values)
+            {
+                if (m.Round > 0)
+                {
+                    winners.Add(m);
+                    if (maxWinners < m.Round)
+                        maxWinners = m.Round;
+                }
+                else
+                { 
+                    losers.Add(m);
+                    if (maxLosers > m.Round)        /* REMEMBER: Loser rounds are negative */
+                        maxLosers = m.Round;
+                }
+            }
+
+            MaxWinnerRounds = maxWinners;
+            MaxLoserRounds = maxLosers;
+
+            SortAscendingNumbers(ref winners);
+            SortDescendingNumbers(ref losers);
         }
 
         /* Updates state of matches of pending and all matches list directly from
@@ -81,8 +128,6 @@ namespace AuTO
                     }
                 }
             }
-
-            allMatches = cm;
         }
 
         /* Schedules top match from open matches and adds it to current matches.
@@ -92,10 +137,10 @@ namespace AuTO
         {
             /* Sort all lists before any scheduling happens; they should already
              * be sorted mostly for most of the time */
-            SortAscendingNumbers(openMatches);
-            SortAscendingNumbers(pendingMatches);
-            SortAscendingNumbers(closedMatches);
-            SortAscendingNumbers(overdueMatches);
+            SortAscendingNumbers(ref openMatches);
+            SortAscendingNumbers(ref pendingMatches);
+            SortAscendingNumbers(ref closedMatches);
+            SortAscendingNumbers(ref overdueMatches);
 
             List<int> IDs = new List<int>();
             for (int k = 0; k < maxSetups; k++)

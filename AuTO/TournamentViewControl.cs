@@ -12,9 +12,16 @@ namespace AuTO
 {
     public partial class TournamentViewControl : UserControl
     {
+        #region Fields
+
         private Point tableScrollPoint;
-        private Dictionary<int, Match> matches;
-        private int setups;
+       
+        private int tournamentID;
+        private Scheduler scheduler;
+        private List<Match> winnersBracket;
+        private List<Match> losersBracket;
+
+        #endregion
 
         /* For testing */
         public TournamentViewControl()
@@ -23,16 +30,22 @@ namespace AuTO
             tableScrollPoint = new Point();
         }
 
-        public TournamentViewControl(Dictionary<int, Match> matches, int setups)
+        public TournamentViewControl(int t_id, Dictionary<int, Match> matches, int setups)
         {
             InitializeComponent();
-
             tableScrollPoint = new Point();
-            this.matches = matches;
-            this.setups = setups;
+
+            tournamentID = t_id;
+            scheduler = new Scheduler(t_id, matches, setups);
+
+            winnersBracket = new List<Match>();
+            losersBracket = new List<Match>();
+            scheduler.SplitMatchesByBrackets(ref winnersBracket, ref losersBracket);
+
+            SetupTournamentView(scheduler.MaxWinnerRounds, winnersBracket);
         }
 
-        public void SetupTournamentView (int rounds)
+        public void SetupTournamentView (int rounds, List<Match> bracket)
         {
             /* Set number of columns needed at their size */
             tourneyTablePanel.Dock = DockStyle.None;
@@ -47,12 +60,14 @@ namespace AuTO
             /* Add matches */
             for (int k = 0; k < rounds; k++)
             {
+                int curRound = k + 1;
+
                 Panel p = new Panel();
                 tourneyTablePanel.Controls.Add(p, k, 1);
                 p.Dock = DockStyle.Fill;
 
                 FlowLayoutPanel f = new FlowLayoutPanel();
-                f.Name = "FlowLayout Round " + (rounds - k);
+                f.Name = "FlowLayout Round " + curRound;
                 f.Margin = new Padding(0, 0, 0, 0);
                 f.AutoSize = false;
                 f.AutoScroll = true;
@@ -62,26 +77,28 @@ namespace AuTO
                 f.MouseDown += tourneyTablePanel_MouseDown;
                 f.MouseMove += matchView_MouseMove;
 
-                for (int j = 0; j < rounds; j++)        // would be number of matches in that round
-                { 
-                    MatchDisplayControl m = new MatchDisplayControl();
-                    m.Name = "Round " + k + " match " + j;
-                    m.SetPlayer1Name("Player 1");
-                    m.SetPlayer2Name("Player 2");
+                /* Add matches related to current round iteration */
+                foreach (Match match in bracket)   
+                {
+                    if (match.Round == curRound)
+                    { 
+                        MatchDisplayControl m = new MatchDisplayControl();
+                        m.Name = "Match Round " + curRound;
+                        m.SetPlayer1Name(m.GetPlayer1Name());
+                        m.SetPlayer2Name(m.GetPlayer2Name());
 
-                    f.Controls.Add(m);
+                        f.Controls.Add(m);
+                    }
                 }
 
                 p.Controls.Add(f);
-
-                //tourneyTablePanel.Controls.Add(f, k, 1);
             }
 
             /* Add Round headers to each column */
             for (int k = 0; k < rounds; k++)
             {
                 Label l = new Label();
-                l.Name = "Round " + (rounds - k);
+                l.Name = "Round " + (k + 1);
                 l.Text = l.Name;
                 l.Font = new Font("Lucida Sans Unicode", 9.75f, FontStyle.Bold);
                 l.TextAlign = ContentAlignment.MiddleCenter;
@@ -93,6 +110,8 @@ namespace AuTO
                 tourneyTablePanel.Controls.Add(l, k, 0);
             }
         }
+
+        #region GUI Events
 
         /* Save mouse position in case if user wants to drag control */
         private void tourneyTablePanel_MouseDown(object sender, MouseEventArgs e)
@@ -124,7 +143,11 @@ namespace AuTO
                 if (pos > -control.Size.Height + 500)
                 control.Top = pos;
             }
-        }    
+        }
+
+        #endregion
+
+        #region Debugging Tools
 
         /* FOR DEBUGGING PURPOSES
          * Find what control was clicked.
@@ -135,5 +158,7 @@ namespace AuTO
             Control control = (Control)sender;
             MessageBox.Show(string.Format("{0} was clicked!", control.Name));
         }
+
+        #endregion
     }
 }

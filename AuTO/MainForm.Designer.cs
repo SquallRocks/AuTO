@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.menuPanel = new System.Windows.Forms.Panel();
-            this.tournamentViewControl1 = new AuTO.TournamentViewControl();
             this.headerControl = new AuTO.identTemp();
-            this.createTournamentControl1 = new AuTO.CreateTournamentControl();
             this.createTournamentControl2 = new AuTO.CreateTournamentControl();
+            this.createTournamentControl1 = new AuTO.CreateTournamentControl();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,21 +43,10 @@
             this.menuPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.menuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.menuPanel.Controls.Add(this.createTournamentControl2);
-            this.menuPanel.Controls.Add(this.tournamentViewControl1);
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
             this.menuPanel.Name = "menuPanel";
-            this.menuPanel.Size = new System.Drawing.Size(906, 495);
+            this.menuPanel.Size = new System.Drawing.Size(1166, 619);
             this.menuPanel.TabIndex = 0;
-            // 
-            // tournamentViewControl1
-            // 
-            this.tournamentViewControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tournamentViewControl1.Location = new System.Drawing.Point(149, 61);
-            this.tournamentViewControl1.Name = "tournamentViewControl1";
-            this.tournamentViewControl1.Size = new System.Drawing.Size(756, 435);
-            this.tournamentViewControl1.TabIndex = 5;
             // 
             // headerControl
             // 
@@ -66,30 +54,30 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.headerControl.Location = new System.Drawing.Point(150, 0);
             this.headerControl.Name = "headerControl";
-            this.headerControl.Size = new System.Drawing.Size(756, 65);
+            this.headerControl.Size = new System.Drawing.Size(1016, 65);
             this.headerControl.TabIndex = 3;
-            // 
-            // createTournamentControl1
-            // 
-            this.createTournamentControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.createTournamentControl1.Location = new System.Drawing.Point(150, 62);
-            this.createTournamentControl1.Name = "createTournamentControl1";
-            this.createTournamentControl1.Size = new System.Drawing.Size(756, 433);
-            this.createTournamentControl1.TabIndex = 4;
             // 
             // createTournamentControl2
             // 
             this.createTournamentControl2.Location = new System.Drawing.Point(149, 61);
             this.createTournamentControl2.Name = "createTournamentControl2";
-            this.createTournamentControl2.Size = new System.Drawing.Size(756, 435);
+            this.createTournamentControl2.Size = new System.Drawing.Size(1016, 557);
             this.createTournamentControl2.TabIndex = 6;
+            // 
+            // createTournamentControl1
+            // 
+            this.createTournamentControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.createTournamentControl1.Location = new System.Drawing.Point(150, 124);
+            this.createTournamentControl1.Name = "createTournamentControl1";
+            this.createTournamentControl1.Size = new System.Drawing.Size(1016, 433);
+            this.createTournamentControl1.TabIndex = 4;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(906, 495);
+            this.ClientSize = new System.Drawing.Size(1166, 619);
             this.Controls.Add(this.headerControl);
             this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.createTournamentControl1);
@@ -105,7 +93,6 @@
 
         private System.Windows.Forms.Panel menuPanel;
         private CreateTournamentControl createTournamentControl1;
-        private TournamentViewControl tournamentViewControl1;
         private identTemp headerControl;
         private CreateTournamentControl createTournamentControl2;
     }

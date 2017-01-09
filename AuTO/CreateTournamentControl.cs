@@ -248,11 +248,12 @@ namespace AuTO
                 }
 
                 this.Hide();
-                this.Dispose();
+                //this.Dispose();
 
-                TournamentViewControl tourneyView = new TournamentViewControl(matches, setups);
+                TournamentViewControl tourneyView = new TournamentViewControl(tournamentID, matches, setups);
                 tourneyView.Location = this.Location;
                 tourneyView.Visible = true;
+                tourneyView.BringToFront();
             }
         }
 
