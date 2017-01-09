@@ -170,6 +170,9 @@ namespace AuTO
 
         #region Match
 
+        /* Retrieves match list from a tounament.
+         * NOTE: returns null if something went wrong, else returns the list of matches.
+         */ 
         public static async Task<Dictionary<int, Match>> RetrieveMatches(int t_id)
         {
             Uri tURL = new Uri(String.Format("{0}/tournaments/{1}/matches.json",
@@ -221,6 +224,25 @@ namespace AuTO
             }
 
             return matches;
+        }
+
+        /* Submits the score of a specified match.
+         * 200 = OK
+         * -200 = Unhandled programming exception
+         */ 
+        public static async Task<int> SubmitMatchScore (int t_id, int matchID, ScoreReport report)
+        {
+            Uri tURL = new Uri(String.Format("{0}/tournaments/{1}/matches/{2}.json",
+                                BASE_URL, t_id, matchID));
+
+            HttpResponseMessage response = await client.PutAsJsonAsync(tURL, report);
+            string result = await response.Content.ReadAsStringAsync();
+            //Console.WriteLine("RESULT: \n{0}", result);
+
+            if (!response.IsSuccessStatusCode)
+                return -200;
+
+            return 200;
         }
 
         #endregion
