@@ -25,3 +25,4 @@ C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.pdb
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.EditTextControl.resources
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.TournamentViewControl.resources
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.MatchDisplayControl.resources
+C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.MatchCallingDisplayControl.resources

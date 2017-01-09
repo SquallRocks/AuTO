@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainSplit = new System.Windows.Forms.SplitContainer();
             this.upcomingLabel = new System.Windows.Forms.Label();
             this.upcomingListbox = new System.Windows.Forms.ListBox();
@@ -36,6 +37,8 @@
             this.currentListbox = new System.Windows.Forms.ListBox();
             this.longLabel = new System.Windows.Forms.Label();
             this.longListbox = new System.Windows.Forms.ListBox();
+            this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.reportMatchAsOngoingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
@@ -44,6 +47,7 @@
             this.secondSplit.Panel1.SuspendLayout();
             this.secondSplit.Panel2.SuspendLayout();
             this.secondSplit.SuspendLayout();
+            this.rightClickMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainSplit
@@ -68,15 +72,16 @@
             // 
             // upcomingLabel
             // 
-            this.upcomingLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.upcomingLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.upcomingLabel.AutoSize = true;
             this.upcomingLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.upcomingLabel.Location = new System.Drawing.Point(35, 0);
+            this.upcomingLabel.Location = new System.Drawing.Point(44, 0);
             this.upcomingLabel.Name = "upcomingLabel";
-            this.upcomingLabel.Size = new System.Drawing.Size(164, 18);
+            this.upcomingLabel.Size = new System.Drawing.Size(136, 18);
             this.upcomingLabel.TabIndex = 3;
-            this.upcomingLabel.Text = "Upcoming Matches";
+            this.upcomingLabel.Text = "Matches to Call";
             this.upcomingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // upcomingListbox
@@ -118,7 +123,8 @@
             // 
             // currentLabel
             // 
-            this.currentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.currentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentLabel.AutoSize = true;
             this.currentLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -147,7 +153,8 @@
             // 
             // longLabel
             // 
-            this.longLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.longLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.longLabel.AutoSize = true;
             this.longLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -174,6 +181,21 @@
             this.longListbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listbox_MouseDown);
             this.longListbox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listbox_MouseMove);
             // 
+            // rightClickMenu
+            // 
+            this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reportMatchAsOngoingToolStripMenuItem});
+            this.rightClickMenu.Name = "rightClickMenu";
+            this.rightClickMenu.Size = new System.Drawing.Size(211, 48);
+            this.rightClickMenu.Text = "Upcoming Match Menu";
+            // 
+            // reportMatchAsOngoingToolStripMenuItem
+            // 
+            this.reportMatchAsOngoingToolStripMenuItem.Name = "reportMatchAsOngoingToolStripMenuItem";
+            this.reportMatchAsOngoingToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.reportMatchAsOngoingToolStripMenuItem.Text = "Report Match as Ongoing";
+            this.reportMatchAsOngoingToolStripMenuItem.Click += new System.EventHandler(this.reportMatchAsOngoingToolStripMenuItem_Click);
+            // 
             // MatchCallingDisplayControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,6 +216,7 @@
             this.secondSplit.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.secondSplit)).EndInit();
             this.secondSplit.ResumeLayout(false);
+            this.rightClickMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -208,5 +231,7 @@
         private System.Windows.Forms.Label upcomingLabel;
         private System.Windows.Forms.Label currentLabel;
         private System.Windows.Forms.Label longLabel;
+        private System.Windows.Forms.ContextMenuStrip rightClickMenu;
+        private System.Windows.Forms.ToolStripMenuItem reportMatchAsOngoingToolStripMenuItem;
     }
 }

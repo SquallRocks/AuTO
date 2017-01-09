@@ -17,6 +17,8 @@ namespace AuTO
         private int maxSetups;
         
         private Dictionary<int, Match> allMatches;
+        private Dictionary<int, string> players;
+
         private List<Match> openMatches;
         private List<Match> pendingMatches;
         private List<Match> closedMatches;
@@ -25,12 +27,15 @@ namespace AuTO
 
         #endregion
 
-        public Scheduler (int t_id, Dictionary<int, Match> matches, int setups)
+        public Scheduler (int t_id, Dictionary<int, string> playerIDs, 
+                          Dictionary<int, Match> matches, int setups)
         {
             tournamentID = t_id;
             maxSetups = setups;
             MaxWinnerRounds = 0;
             MaxLoserRounds = 0;
+
+            players = playerIDs;
             allMatches = matches;
 
             /* DEBUGGING */
@@ -110,7 +115,7 @@ namespace AuTO
 
         /* Updates state of matches of pending and all matches list directly from
          * Challonge */
-        private async void UpdateMatchStatesFromChallonge ()
+        public async void UpdateMatchStatesFromChallonge ()
         {
             /* Retrieve most updated list of matches */
             Dictionary<int, Match> cm = await Challonge.RetrieveMatches(tournamentID);
@@ -131,9 +136,9 @@ namespace AuTO
         }
 
         /* Schedules top match from open matches and adds it to current matches.
-         * Returns list of Match IDs of newly scheduled matches.
-         */ 
-        public List<int> ScheduleOpenMatches ()
+         * Returns list of newly scheduled matches. List is null if no matches
+         * could be scheduled. */ 
+        public List<Match> ScheduleOpenMatches ()
         {
             /* Sort all lists before any scheduling happens; they should already
              * be sorted mostly for most of the time */
@@ -142,7 +147,7 @@ namespace AuTO
             SortAscendingNumbers(ref closedMatches);
             SortAscendingNumbers(ref overdueMatches);
 
-            List<int> IDs = new List<int>();
+            List<Match> matches = new List<Match>();
             for (int k = 0; k < maxSetups; k++)
             { 
                 if (currentMatches[k] == null)
@@ -151,21 +156,21 @@ namespace AuTO
                     m.Setup = k + 1;
                     currentMatches[k] = m;
 
-                    IDs.Add(m.ID);
+                    matches.Add(m);
                     openMatches.RemoveAt(0);
                 }
             }
 
             /* If no matches could be scheduled, return null list */
-            if (IDs.Count == 0)
+            if (matches.Count == 0)
                 return null;
 
-            return IDs;
+            return matches;
         }
 
         /* Moves match from currentMatches pool to closedMatches pool.
          * Returns true if match was in current matches and moved successfully,
-         * false if it was not found */
+         * false if it was not found. */
         public bool CloseMatch (int matchID)
         { 
             for (int k = 0; k < maxSetups; k++)
@@ -209,6 +214,27 @@ namespace AuTO
             }
 
             return false;
+        }
+
+        /* Retrieves player's name from their ID */
+        public string GetPlayerNameFromID (int id)
+        {
+            if (!players.Keys.Contains<int>(id))
+                return null;
+
+            return players[id];
+        }
+
+        /* Retrieves player's ID from their name. 
+         * Returns -1 if name is not in system. */
+        public int GetPlayerIDFromName (string name)
+        {
+            if (!players.Values.Contains<string>(name))
+                return -1;
+
+            /* This is safe since there are no duplicate names/IDs in
+             * this dictionary */
+            return players.First(x => x.Value.Equals(name)).Key;
         }
     }
 }

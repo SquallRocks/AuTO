@@ -15,6 +15,7 @@ namespace AuTO
         #region Fields
 
         private Point tableScrollPoint;
+        private Dictionary<int, MatchDisplayControl> matchControls;
        
         private int tournamentID;
         private Scheduler scheduler;
@@ -30,19 +31,22 @@ namespace AuTO
             tableScrollPoint = new Point();
         }
 
-        public TournamentViewControl(int t_id, Dictionary<int, Match> matches, int setups)
+        public TournamentViewControl(int t_id, Dictionary<int, string> players,
+                                     Dictionary<int, Match> matches, int setups)
         {
             InitializeComponent();
             tableScrollPoint = new Point();
+            matchControls = new Dictionary<int, MatchDisplayControl>();
 
             tournamentID = t_id;
-            scheduler = new Scheduler(t_id, matches, setups);
+            scheduler = new Scheduler(t_id, players, matches, setups);
 
             winnersBracket = new List<Match>();
             losersBracket = new List<Match>();
             scheduler.SplitMatchesByBrackets(ref winnersBracket, ref losersBracket);
 
             SetupTournamentView(scheduler.MaxWinnerRounds, winnersBracket);
+            ScheduleMatches();
         }
 
         public void SetupTournamentView (int rounds, List<Match> bracket)
@@ -82,11 +86,15 @@ namespace AuTO
                 {
                     if (match.Round == curRound)
                     { 
-                        MatchDisplayControl m = new MatchDisplayControl();
+                        MatchDisplayControl m = new MatchDisplayControl(this);
                         m.Name = "Match Round " + curRound;
+                        m.SetMatchID(match.ID);
                         m.SetPlayer1Name(m.GetPlayer1Name());
                         m.SetPlayer2Name(m.GetPlayer2Name());
 
+                        m.GetSubmitButton().Click += submitButton_Click;
+
+                        matchControls.Add(match.ID, m);
                         f.Controls.Add(m);
                     }
                 }
@@ -109,6 +117,60 @@ namespace AuTO
 
                 tourneyTablePanel.Controls.Add(l, k, 0);
             }
+        }
+
+        /* Schedules upcoming matches and notifies user that new matches can be called
+         * NOTE: So far, the notifying user portion operaetes by adding items to the upcoming
+         * match list as well as changing control colors. */
+        private void ScheduleMatches ()
+        {
+            //matchCallingControl.ClearUpcomingMatches();
+            //matchCallingControl.ClearLongMatches();
+            
+            /* Schedule newly opened matches and add them to matches-
+             * to-call list. */
+            scheduler.UpdateMatchStatesFromChallonge();
+            List<Match> newMatches = scheduler.ScheduleOpenMatches();
+            foreach (Match m in newMatches)
+            {
+                /* Check if match exists */
+                if (!matchControls.ContainsKey(m.ID))
+                {
+                    Console.WriteLine("Match doesn't exist! Something was updated in challonge website.");
+                    return;
+                }
+
+                string p1 = scheduler.GetPlayerNameFromID(m.Player1ID);
+                string p2 = scheduler.GetPlayerNameFromID(m.Player2ID);
+
+                /* Set MatchDisplayControl information */
+                MatchDisplayControl mdc = matchControls[m.ID];
+                mdc.SetPlayer1Name(p1);
+                mdc.SetPlayer2Name(p2);
+                mdc.IndicateOpenMatch();
+
+                /* Set match name info in upcoming match list */
+                string matchName = String.Format("{0} vs. {1}", p1, p2);
+                matchCallingControl.AddItemToUpcomingMatches(matchName, m.ID);
+            }
+        }
+
+        /* Sets a match as ongoing, changing its control color, removing it from the
+         * upcoming match list and putting it in the ongoing match list. */
+        public void SetMatchAsOngoing (int id)
+        { 
+            if (!matchControls.ContainsKey(id))
+            {
+                Console.WriteLine("Match doesn't exist! Something was updated in challonge website.");
+                return;
+            }
+
+            MatchDisplayControl mdc = matchControls[id];
+            mdc.IndicateOngoingMatch();
+
+            string matchName = String.Format("{0} vs. {1}", mdc.GetPlayer1Name(), mdc.GetPlayer2Name());
+            matchCallingControl.DeleteItemFromUpcomingMatches(matchName);
+            matchCallingControl.AddItemToUpcomingMatches(matchName, id);
         }
 
         #region GUI Events
@@ -143,6 +205,45 @@ namespace AuTO
                 if (pos > -control.Size.Height + 500)
                 control.Top = pos;
             }
+        }
+
+        /* Submit score to Challonge */
+        private async void submitButton_Click(object sender, EventArgs e)
+        {
+            MatchDisplayControl parent = ((Button)sender).Parent as MatchDisplayControl;
+
+            int p1Score = parent.GetPlayer1Score();
+            int p2Score = parent.GetPlayer2Score();
+
+            int p1ID = scheduler.GetPlayerIDFromName(parent.GetPlayer1Name());
+            int p2ID = scheduler.GetPlayerIDFromName(parent.GetPlayer2Name());
+
+            int winnerID = (p1Score > p2Score) ? p1ID : 
+                           (p1Score < p2Score) ? p2ID : -1;
+
+            if (winnerID == -1)
+            {
+                parent.DisplayErrorLabel("Cannot have same scores!");
+                return;
+            }
+
+            int matchID = parent.GetMatchID();
+            bool success = await scheduler.ReportMatch(matchID, p1Score, p2Score, winnerID);
+            if (!success)
+            {
+                parent.DisplayErrorLabel("Report to Challonge failed.");
+                return;
+            }
+
+            string matchName = String.Format("{0} vs. {1}", parent.GetPlayer1Name(), parent.GetPlayer2Name());
+            matchCallingControl.DeleteItemFromOngoingMatches(matchName);
+
+            parent.HideErrorLabel();
+            parent.IndicateSubmittedMatch();
+
+
+            scheduler.CloseMatch(matchID);
+            ScheduleMatches();
         }
 
         #endregion

@@ -468,7 +468,8 @@
             // 
             // playerListbox
             // 
-            this.playerListbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.playerListbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.playerListbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.playerListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
