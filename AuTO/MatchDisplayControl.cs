@@ -21,8 +21,10 @@ namespace AuTO
 
             /* Do not let user mess with player names; scheduler
              * handles it internally */
-            player1Textbox.Enabled = false;
-            player2Textbox.Enabled = false;
+            player1Textbox.ReadOnly = true;
+            player2Textbox.ReadOnly = true;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
             errorLabel.Visible = false;
 
             submitButton.Parent = this;
@@ -125,32 +127,56 @@ namespace AuTO
 
         public void IndicateOpenMatch ()
         {
-            mainPanel.BackColor = Color.Ivory;
+            player1Textbox.BackColor = Color.Ivory;
+            player2Textbox.BackColor = Color.Ivory;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
+            //mainPanel.BackColor = Color.Ivory;
         }
 
         public void IndicateOngoingMatch ()
         {
-            mainPanel.BackColor = Color.DarkGoldenrod;
+            player1Textbox.BackColor = Color.Khaki;
+            player2Textbox.BackColor = Color.Khaki;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
+            //mainPanel.BackColor = Color.Khaki;
         }
 
         public void IndicateSubmittedMatch ()
         {
-            mainPanel.BackColor = Color.Green;
+            player1Textbox.BackColor = Color.PaleGreen;
+            player2Textbox.BackColor = Color.PaleGreen;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
+            //mainPanel.BackColor = Color.Green;
         }
 
         public void IndicateLongMatch ()
         {
-            mainPanel.BackColor = Color.Maroon;
+            player1Textbox.BackColor = Color.PaleVioletRed;
+            player2Textbox.BackColor = Color.PaleVioletRed;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
+            //mainPanel.BackColor = Color.Maroon;
         }
 
-        public void ResetBackColor ()
+        public void ResetTextboxBackColor ()
         {
-            mainPanel.BackColor = SystemColors.AppWorkspace;
+            player1Textbox.BackColor = SystemColors.AppWorkspace;
+            player2Textbox.BackColor = SystemColors.AppWorkspace;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
+            //mainPanel.BackColor = SystemColors.AppWorkspace;
         }
 
         public void SetBackColor (Color c)
         {
-            mainPanel.BackColor = c;
+            player1Textbox.BackColor = c;
+            player2Textbox.BackColor = c;
+            player1Textbox.ForeColor = Color.Black;
+            player2Textbox.ForeColor = Color.Black;
+            //mainPanel.BackColor = c;
         }
 
         #endregion

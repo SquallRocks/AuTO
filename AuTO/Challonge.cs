@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace AuTO
 { 
@@ -236,16 +237,27 @@ namespace AuTO
             Uri tURL = new Uri(String.Format("{0}/tournaments/{1}/matches/{2}.json",
                                 BASE_URL, t_id, matchID));
 
+            /* XML DEBUGGING; DOESN'T WORK */
+            //String xml = String.Format("<scores-csv>{0}</scores-csv><winner-id type=\"integer\">{1}</winner-id>", report.scores_csv, report.winner_id);
+
+            //XElement xml = new XElement("match",
+            //    new XElement("scores_csv", report.scores_csv),
+            //    new XElement("winner_id", new XAttribute("type", "integer"), report.winner_id)
+            //);
+
+            //StringContent content = new StringContent(xml.ToString(), Encoding.UTF8, "application/xml");
+            //string xmlContent = await content.ReadAsStringAsync();
+            //Console.WriteLine("Content: \n{0}", xmlContent);
+
             string j = await Task.Run(() => JsonConvert.SerializeObject(report));
             StringContent content = new StringContent(j, Encoding.UTF8, "application/json");
             string jsonContent = await content.ReadAsStringAsync();
             Console.WriteLine("Content: \n{0}", jsonContent);
 
             HttpResponseMessage response = await client.PutAsync(tURL, content);
-
             //HttpResponseMessage response = await client.PutAsJsonAsync(tURL, report);
             string result = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("RESULT FROM REPORTINTG SCORES: \n{0}", result);
+            Console.WriteLine("RESULT FROM REPORTING SCORES: \n{0}", result);
 
             if (!response.IsSuccessStatusCode)
                 return -200;

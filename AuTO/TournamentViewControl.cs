@@ -64,7 +64,7 @@ namespace AuTO
             /* Set number of columns needed at their size */
             tourneyTablePanel.Dock = DockStyle.None;
             tourneyTablePanel.ColumnCount = rounds;
-            tourneyTablePanel.Size = new Size(rounds * 200, tourneyTablePanel.Size.Height);  
+            tourneyTablePanel.Size = new Size(rounds * 200, rounds * 155 * 2);  
 
             /* Set column and row height/width */
             TableLayoutStyleCollection styles = tourneyTablePanel.ColumnStyles;
@@ -103,12 +103,15 @@ namespace AuTO
                 foreach (Match match in bracket)   
                 {
                     if (match.Round == curRound)
-                    { 
+                    {
+                        string p1 = scheduler.GetPlayerNameFromID(match.Player1ID);
+                        string p2 = scheduler.GetPlayerNameFromID(match.Player2ID);
+
                         MatchDisplayControl m = new MatchDisplayControl(this);
                         m.Name = "Match Round " + curRound;
                         m.SetMatchID(match.ID);
-                        m.SetPlayer1Name(m.GetPlayer1Name());
-                        m.SetPlayer2Name(m.GetPlayer2Name());
+                        m.SetPlayer1Name(p1);
+                        m.SetPlayer2Name(p2);
 
                         m.GetSubmitButton().Click += submitButton_Click;
 
@@ -188,7 +191,7 @@ namespace AuTO
 
             string matchName = String.Format("{0} vs. {1}", mdc.GetPlayer1Name(), mdc.GetPlayer2Name());
             matchCallingControl.DeleteItemFromUpcomingMatches(matchName);
-            matchCallingControl.AddItemToUpcomingMatches(matchName, id);
+            matchCallingControl.AddItemToCurrentMatches(matchName);
         }
 
         #region GUI Events
