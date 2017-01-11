@@ -130,9 +130,16 @@ namespace AuTO
             /* Make sure player has not already been added */
             foreach (string s in playerListbox.Items)
             {
-                if (s.Substring(3).Equals(player))
+                /* Get player name without seed number */
+                string[] components = s.Split('.');
+                string p = string.Join(".", components, 1, components.Length - 1);
+
+                /* Remember, there is a space after the seed number; disregard it */
+                p = p.Substring(1).ToLower();
+
+                if (p.Equals(player.ToLower()))
                 {
-                    errorLabel.Text = string.Format("{0} has already been added.",
+                    errorLabel.Text = string.Format("{0} has already been added. Challonge is not case sensitive.",
                                                     playerTextbox.Text);
                     errorLabel.Visible = true;
                     return;
@@ -249,6 +256,8 @@ namespace AuTO
 
                 TournamentViewControl tourneyView = new TournamentViewControl(tournamentID, playerIDs,
                                                                               matches, setups);
+                tourneyView.Name = "tourneyView";
+                tourneyView.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 tourneyView.Location = this.Location;
                 tourneyView.Visible = true;
                 tourneyView.BringToFront();

@@ -25,6 +25,9 @@ namespace AuTO
             player2Textbox.Enabled = false;
             errorLabel.Visible = false;
 
+            submitButton.Parent = this;
+            submitButton.BringToFront();
+
             matchID = 0;
             masterParent = master;
         }
@@ -47,7 +50,7 @@ namespace AuTO
         {
             if (e.Button == MouseButtons.Right)
             {
-                rightClickMenu.Visible = true;
+                rightClickMenu.Show(Cursor.Position);
             }
         }
 
@@ -122,32 +125,32 @@ namespace AuTO
 
         public void IndicateOpenMatch ()
         {
-            this.BackColor = Color.Ivory;
+            mainPanel.BackColor = Color.Ivory;
         }
 
         public void IndicateOngoingMatch ()
         {
-            this.BackColor = Color.DarkGoldenrod;
+            mainPanel.BackColor = Color.DarkGoldenrod;
         }
 
         public void IndicateSubmittedMatch ()
         {
-            this.BackColor = Color.Green;
+            mainPanel.BackColor = Color.Green;
         }
 
         public void IndicateLongMatch ()
         {
-            this.BackColor = Color.Maroon;
+            mainPanel.BackColor = Color.Maroon;
         }
 
         public void ResetBackColor ()
         {
-            this.BackColor = SystemColors.AppWorkspace;
+            mainPanel.BackColor = SystemColors.AppWorkspace;
         }
 
         public void SetBackColor (Color c)
         {
-            this.BackColor = c;
+            mainPanel.BackColor = c;
         }
 
         #endregion

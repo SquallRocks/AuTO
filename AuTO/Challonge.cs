@@ -55,8 +55,8 @@ namespace AuTO
             Uri tURL = new Uri(BASE_URL + "/tournaments.json");
 
             /* FOR DEBUGGING PURPOSES */
-            //string json = await Task.Run(() => JsonConvert.SerializeObject(t));
-            //StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            //string j = await Task.Run(() => JsonConvert.SerializeObject(t));
+            //StringContent content = new StringContent(j, Encoding.UTF8, "application/json");
             //string jsonContent = await content.ReadAsStringAsync();
             //Console.WriteLine("Content: \n{0}", jsonContent);
             //HttpResponseMessage response = await client.PostAsync(tURL, content);
@@ -121,6 +121,7 @@ namespace AuTO
 
             if (!response.IsSuccessStatusCode)
                 return -200;
+            
 
             /* Retrieve participant ID */
             JObject json = JObject.Parse(result);
@@ -235,9 +236,16 @@ namespace AuTO
             Uri tURL = new Uri(String.Format("{0}/tournaments/{1}/matches/{2}.json",
                                 BASE_URL, t_id, matchID));
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(tURL, report);
+            string j = await Task.Run(() => JsonConvert.SerializeObject(report));
+            StringContent content = new StringContent(j, Encoding.UTF8, "application/json");
+            string jsonContent = await content.ReadAsStringAsync();
+            Console.WriteLine("Content: \n{0}", jsonContent);
+
+            HttpResponseMessage response = await client.PutAsync(tURL, content);
+
+            //HttpResponseMessage response = await client.PutAsJsonAsync(tURL, report);
             string result = await response.Content.ReadAsStringAsync();
-            //Console.WriteLine("RESULT: \n{0}", result);
+            Console.WriteLine("RESULT FROM REPORTINTG SCORES: \n{0}", result);
 
             if (!response.IsSuccessStatusCode)
                 return -200;

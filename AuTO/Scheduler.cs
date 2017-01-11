@@ -12,6 +12,7 @@ namespace AuTO
 
         public int MaxWinnerRounds;
         public int MaxLoserRounds;
+        public int MaxMatchesPerRound;
 
         private int tournamentID;
         private int maxSetups;
@@ -54,17 +55,31 @@ namespace AuTO
         /* Sorts a match based on play order, lesser numbers first
          * i.e. (3, 5, 2, 7) => (2, 3, 5, 7)
          */ 
-        private void SortAscendingNumbers (ref List<Match> matches)
+        private void SortDescendingNumbers (ref List<Match> matches)
         {
             matches.Sort((x, y) => y.PlayOrder.CompareTo(x.PlayOrder));  
         }
 
         /* Sorts a match based on play order, greater numbers first
          * i.e. (3, 5, 2, 7) => (7, 5, 3, 2)
-         */ 
-        private void SortDescendingNumbers (ref List<Match> matches)
+         */
+        private void SortAscendingNumbers(ref List<Match> matches)
         {
             matches.Sort((x, y) => x.PlayOrder.CompareTo(y.PlayOrder));
+        }
+
+        /* Checks if there is an open match; if so, returns match and removes it
+         * from open match list; if not, returns null. */
+        private Match PopTopOpenMatch ()
+        { 
+            Match m = null;
+            if (openMatches.Count > 0 && openMatches[0] != null)
+            {
+                m = openMatches[0];
+                openMatches.RemoveAt(0);
+            }
+
+            return m;
         }
 
         /* Separates matches into open and pending pools */
@@ -109,8 +124,9 @@ namespace AuTO
             MaxWinnerRounds = maxWinners;
             MaxLoserRounds = maxLosers;
 
+            /* Sort matches by play order */
             SortAscendingNumbers(ref winners);
-            SortDescendingNumbers(ref losers);
+            SortAscendingNumbers(ref losers);
         }
 
         /* Updates state of matches of pending and all matches list directly from
@@ -150,23 +166,22 @@ namespace AuTO
             List<Match> matches = new List<Match>();
             for (int k = 0; k < maxSetups; k++)
             { 
+                /* Look for an empty spot in currentMatches array */
                 if (currentMatches[k] == null)
                 {
-                    Match m = openMatches[0];
+                    Match m = PopTopOpenMatch();
+                    if (m == null)
+                        break;
+
                     m.Setup = k + 1;
                     currentMatches[k] = m;
 
                     matches.Add(m);
-                    openMatches.RemoveAt(0);
                 }
             }
 
-            /* If no matches could be scheduled, return null list */
-            if (matches.Count == 0)
-                return null;
-
             return matches;
-        }
+         }
 
         /* Moves match from currentMatches pool to closedMatches pool.
          * Returns true if match was in current matches and moved successfully,

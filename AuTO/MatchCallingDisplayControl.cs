@@ -107,7 +107,9 @@ namespace AuTO
             else if (e.Button == MouseButtons.Right)
             {
                 if (upcomingListbox.SelectedItem != null)
-                    rightClickMenu.Visible = true;
+                {
+                    rightClickMenu.Show(Cursor.Position);
+                }
             }
         }
 

@@ -34,9 +34,14 @@ namespace AuTO
         public TournamentViewControl(int t_id, Dictionary<int, string> players,
                                      Dictionary<int, Match> matches, int setups)
         {
+            /* DEBUGGING */
+            foreach (Match m in matches.Values)
+                Console.WriteLine("Match: {0} Round: {1} Order: {2}", m.ID, m.Round, m.PlayOrder);
+
             InitializeComponent();
             tableScrollPoint = new Point();
             matchControls = new Dictionary<int, MatchDisplayControl>();
+            matchCallingControl.SetMasterParent(this);
 
             tournamentID = t_id;
             scheduler = new Scheduler(t_id, players, matches, setups);
@@ -49,12 +54,17 @@ namespace AuTO
             ScheduleMatches();
         }
 
+        public int GetTournamentID ()
+        {
+            return tournamentID;
+        }
+
         public void SetupTournamentView (int rounds, List<Match> bracket)
         {
             /* Set number of columns needed at their size */
             tourneyTablePanel.Dock = DockStyle.None;
             tourneyTablePanel.ColumnCount = rounds;
-            tourneyTablePanel.Size = new Size(rounds * 200, 110 * rounds);  
+            tourneyTablePanel.Size = new Size(rounds * 200, tourneyTablePanel.Size.Height);  
 
             /* Set column and row height/width */
             TableLayoutStyleCollection styles = tourneyTablePanel.ColumnStyles;
@@ -70,12 +80,20 @@ namespace AuTO
                 tourneyTablePanel.Controls.Add(p, k, 1);
                 p.Dock = DockStyle.Fill;
 
+                /* Size flow panel by how many games that round has */
+                int gamesPerRound = 0;
+                foreach (Match match in bracket)
+                {
+                    if (match.Round == curRound)
+                        gamesPerRound++;
+                }
+
                 FlowLayoutPanel f = new FlowLayoutPanel();
                 f.Name = "FlowLayout Round " + curRound;
                 f.Margin = new Padding(0, 0, 0, 0);
                 f.AutoSize = false;
                 f.AutoScroll = true;
-                f.Size = new Size(f.Size.Width, rounds * 110);
+                f.Size = new Size(f.Size.Width, gamesPerRound * 155);
                 f.FlowDirection = FlowDirection.TopDown;
                 f.WrapContents = false;
                 f.MouseDown += tourneyTablePanel_MouseDown;
@@ -211,6 +229,11 @@ namespace AuTO
         private async void submitButton_Click(object sender, EventArgs e)
         {
             MatchDisplayControl parent = ((Button)sender).Parent as MatchDisplayControl;
+            if (parent == null)
+            {
+                Console.WriteLine("MatchDisplayControl that submit button is part of could not be found.");
+                return;
+            }
 
             int p1Score = parent.GetPlayer1Score();
             int p2Score = parent.GetPlayer2Score();
