@@ -30,9 +30,9 @@
         {
             this.mainPanel = new System.Windows.Forms.Panel();
             this.mainSplit = new System.Windows.Forms.SplitContainer();
-            this.matchCallingControl = new AuTO.MatchCallingDisplayControl();
             this.winnerTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.loserTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.matchCallingControl = new AuTO.MatchCallingDisplayControl();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
@@ -43,12 +43,10 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.mainPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainPanel.Controls.Add(this.mainSplit);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(1086, 634);
@@ -71,21 +69,11 @@
             this.mainSplit.SplitterDistance = 237;
             this.mainSplit.TabIndex = 3;
             // 
-            // matchCallingControl
-            // 
-            this.matchCallingControl.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.matchCallingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.matchCallingControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchCallingControl.Location = new System.Drawing.Point(0, 0);
-            this.matchCallingControl.Name = "matchCallingControl";
-            this.matchCallingControl.Size = new System.Drawing.Size(237, 632);
-            this.matchCallingControl.TabIndex = 2;
-            // 
             // winnerTablePanel
             // 
             this.winnerTablePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.winnerTablePanel.ColumnCount = 1;
-            this.winnerTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 845F));
+            this.winnerTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 849F));
             this.winnerTablePanel.Controls.Add(this.loserTablePanel, 0, 0);
             this.winnerTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.winnerTablePanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
@@ -104,7 +92,7 @@
             // 
             this.loserTablePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.loserTablePanel.ColumnCount = 1;
-            this.loserTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 845F));
+            this.loserTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 850F));
             this.loserTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loserTablePanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.loserTablePanel.Location = new System.Drawing.Point(1, 1);
@@ -113,8 +101,18 @@
             this.loserTablePanel.RowCount = 2;
             this.loserTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             this.loserTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.loserTablePanel.Size = new System.Drawing.Size(845, 37);
+            this.loserTablePanel.Size = new System.Drawing.Size(849, 37);
             this.loserTablePanel.TabIndex = 1;
+            // 
+            // matchCallingControl
+            // 
+            this.matchCallingControl.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.matchCallingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.matchCallingControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchCallingControl.Location = new System.Drawing.Point(0, 0);
+            this.matchCallingControl.Name = "matchCallingControl";
+            this.matchCallingControl.Size = new System.Drawing.Size(237, 632);
+            this.matchCallingControl.TabIndex = 2;
             // 
             // TournamentViewControl
             // 

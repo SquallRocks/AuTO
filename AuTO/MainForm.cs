@@ -10,17 +10,51 @@ using System.Windows.Forms;
 
 namespace AuTO
 {
-    public partial class mainForm : Form
+    public partial class MainForm : Form
     {
-        public mainForm()
+        private string tourneyName;
+
+        public MainForm()
         {
             InitializeComponent();
             headerControl.SetHeader("Create a Tournament");
+
+            tourneyName = string.Empty;
         }
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms[0].Close();
+        }
+
+        public void SetTournamentName (string name)
+        {
+            tourneyName = name;
+        }
+
+        public void SetHeaderText (string text)
+        {
+            headerControl.SetHeader(text);
+        }
+
+        public Button GetWinnersButton ()
+        {
+           return headerControl.GetWinnersButton();
+        }
+
+        public Button GetLosersButton ()
+        {
+            return headerControl.GetLosersButton();
+        }
+
+        public void HideBracketButtons ()
+        {
+            headerControl.HideBracketButtons();
+        }
+
+        public void ShowBracketButtons ()
+        {
+            headerControl.ShowBracketButtons();
         }
 
         /* DEBUGGING */

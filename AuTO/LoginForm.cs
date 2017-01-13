@@ -45,7 +45,7 @@ namespace AuTO
             invalidLabel.Visible = false;
             testLabel.Visible = true;
 
-            Form mainForm = new mainForm();
+            Form mainForm = new MainForm();
             this.Visible = false;
             mainForm.Visible = true;
 

@@ -77,7 +77,7 @@
             // 
             // contentPanel
             // 
-            this.contentPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.contentPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.contentPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contentPanel.Controls.Add(this.mainSplit);
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -129,7 +129,7 @@
             this.setupUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.setupUpDown.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.setupUpDown.BackColor = System.Drawing.SystemColors.ControlDark;
             this.setupUpDown.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.setupUpDown.Location = new System.Drawing.Point(180, 191);
             this.setupUpDown.Maximum = new decimal(new int[] {
@@ -307,7 +307,7 @@
             this.playerTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.playerTextbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.playerTextbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.playerTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerTextbox.Location = new System.Drawing.Point(177, 236);
             this.playerTextbox.Name = "playerTextbox";
@@ -319,7 +319,7 @@
             this.urlTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.urlTextbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.urlTextbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.urlTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlTextbox.Location = new System.Drawing.Point(177, 145);
             this.urlTextbox.Name = "urlTextbox";
@@ -332,7 +332,7 @@
             this.subTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.subTextbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.subTextbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.subTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subTextbox.Location = new System.Drawing.Point(177, 98);
             this.subTextbox.Name = "subTextbox";
@@ -344,7 +344,7 @@
             this.nameTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameTextbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.nameTextbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.nameTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameTextbox.Location = new System.Drawing.Point(177, 23);
             this.nameTextbox.Name = "nameTextbox";
@@ -470,7 +470,7 @@
             this.playerListbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.playerListbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.playerListbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.playerListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.playerListbox.DisplayMember = "1. Sample";
             this.playerListbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

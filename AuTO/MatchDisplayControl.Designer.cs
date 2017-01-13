@@ -48,7 +48,7 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.mainPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.mainPanel.Controls.Add(this.errorLabel);
             this.mainPanel.Controls.Add(this.submitButton);
             this.mainPanel.Controls.Add(this.setupLabel);
@@ -68,7 +68,7 @@
             // 
             this.player2UpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player2UpDown.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.player2UpDown.BackColor = System.Drawing.SystemColors.ControlDark;
             this.player2UpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player2UpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player2UpDown.Location = new System.Drawing.Point(141, 77);
@@ -83,7 +83,7 @@
             this.player2Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player2Textbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.player2Textbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.player2Textbox.Enabled = false;
             this.player2Textbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player2Textbox.Location = new System.Drawing.Point(3, 76);
@@ -96,7 +96,7 @@
             // 
             this.player1UpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player1UpDown.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.player1UpDown.BackColor = System.Drawing.SystemColors.ControlDark;
             this.player1UpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player1UpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player1UpDown.Location = new System.Drawing.Point(141, 33);
@@ -111,7 +111,7 @@
             this.player1Textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player1Textbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.player1Textbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.player1Textbox.Enabled = false;
             this.player1Textbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player1Textbox.Location = new System.Drawing.Point(3, 32);

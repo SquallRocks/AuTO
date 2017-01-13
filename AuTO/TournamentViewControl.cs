@@ -18,6 +18,7 @@ namespace AuTO
         private Dictionary<int, MatchDisplayControl> matchControls;
        
         private int tournamentID;
+        private string tournamentName;
         private bool isDoubleElim;
         private Scheduler scheduler;
         private List<Match> winnersBracket;
@@ -32,7 +33,7 @@ namespace AuTO
             tableScrollPoint = new Point();
         }
 
-        public TournamentViewControl(int t_id, Dictionary<int, string> players,
+        public TournamentViewControl(int t_id, string name, Dictionary<int, string> players,
                                      Dictionary<int, Match> matches, int setups, bool doubleElim)
         {
             /* DEBUGGING */
@@ -45,6 +46,7 @@ namespace AuTO
             matchCallingControl.SetMasterParent(this);
 
             tournamentID = t_id;
+            tournamentName = name;
             isDoubleElim = doubleElim;
             scheduler = new Scheduler(t_id, players, matches, setups);
 
@@ -59,6 +61,24 @@ namespace AuTO
             ScheduleMatches();
         }
 
+        public void SetBracketButtons (MainForm mainForm)
+        {
+            mainForm.SetTournamentName(tournamentName);
+            mainForm.SetHeaderText(tournamentName);
+
+            /* Setup bracket button functionality, if applicable. */
+            if (isDoubleElim)
+            {
+                mainForm.GetWinnersButton().Click += winnersButton_Click;
+                mainForm.GetLosersButton().Click += losersButton_Click;
+                mainForm.ShowBracketButtons();
+            }
+            else
+            {
+                mainForm.HideBracketButtons();
+            }
+        }
+
         public int GetTournamentID ()
         {
             return tournamentID;
@@ -66,9 +86,12 @@ namespace AuTO
 
         public void SetupTournamentView (TableLayoutPanel panel, int rounds, List<Match> bracket)
         {
+            /* Loser rounds are negative */
+            rounds = (int)Math.Abs(rounds);
+
             /* Set number of columns needed at their size */
             panel.Dock = DockStyle.None;
-            panel.ColumnCount = rounds;
+            panel.ColumnCount = (int)Math.Abs(rounds);
 
             /* Automatically updates size in case if MatchDisplayControl's size gets
              * updated at some point. */
@@ -79,7 +102,7 @@ namespace AuTO
             /* Set column and row height/width */
             TableLayoutStyleCollection styles = panel.ColumnStyles;
             foreach (ColumnStyle c in styles)
-                c.Width = sizeDummy.X;
+                c.Width = sizeDummy.X + 5;
 
             /* Add matches */
             for (int k = 0; k < rounds; k++)
@@ -94,12 +117,11 @@ namespace AuTO
                 int gamesPerRound = 0;
                 foreach (Match match in bracket)
                 {
-                    if (match.Round == curRound)
+                    if ((int)Math.Abs(match.Round) == curRound)
                         gamesPerRound++;
                 }
 
                 FlowLayoutPanel f = new FlowLayoutPanel();
-                f.Name = "FlowLayout Round " + curRound;
                 f.Margin = new Padding(0, 0, 0, 0);
                 f.AutoSize = false;
                 f.AutoScroll = true;
@@ -112,13 +134,12 @@ namespace AuTO
                 /* Add matches related to current round iteration */
                 foreach (Match match in bracket)   
                 {
-                    if (match.Round == curRound)
+                    if ((int)Math.Abs(match.Round) == curRound)
                     {
                         string p1 = scheduler.GetPlayerNameFromID(match.Player1ID);
                         string p2 = scheduler.GetPlayerNameFromID(match.Player2ID);
 
                         MatchDisplayControl m = new MatchDisplayControl(this);
-                        m.Name = "Match Round " + curRound;
                         m.SetMatchID(match.ID);
                         m.SetPlayer1Name(p1);
                         m.SetPlayer2Name(p2);
@@ -220,7 +241,7 @@ namespace AuTO
         {
             if (e.Button == MouseButtons.Left)
             {
-                TableLayoutPanel panel = sender as TableLayoutPanel;
+                Control panel = sender as Control;
 
                 int pos = e.X + panel.Left - tableScrollPoint.X;
                 pos = (int)Math.Max(pos, -panel.Size.Width + 500);
@@ -243,7 +264,7 @@ namespace AuTO
         }
 
         /* Displays winners bracket */
-        private void DisplayWinnersBracket ()
+        public void winnersButton_Click(object sender, EventArgs e)
         {
             if (isDoubleElim)
             {
@@ -253,7 +274,7 @@ namespace AuTO
         }
 
         /* Displays losers bracket */
-        private void DisplayLosersBracket ()
+        public void losersButton_Click(object sender, EventArgs e)
         {
             if (isDoubleElim)
             {

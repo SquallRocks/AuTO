@@ -107,7 +107,7 @@
             // 
             // upcomingListbox
             // 
-            this.upcomingListbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.upcomingListbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.upcomingListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.upcomingListbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.upcomingListbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -171,7 +171,7 @@
             // 
             // currentListbox
             // 
-            this.currentListbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.currentListbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.currentListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.currentListbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentListbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -215,7 +215,7 @@
             // 
             // longListbox
             // 
-            this.longListbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.longListbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.longListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.longListbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.longListbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -246,7 +246,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this.mainSplit);
             this.Name = "MatchCallingDisplayControl";
             this.Size = new System.Drawing.Size(234, 480);

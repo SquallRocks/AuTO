@@ -168,8 +168,8 @@ namespace AuTO
 
         public void ResetTextboxBackColor ()
         {
-            player1Textbox.BackColor = SystemColors.AppWorkspace;
-            player2Textbox.BackColor = SystemColors.AppWorkspace;
+            player1Textbox.BackColor = SystemColors.ControlDark;
+            player2Textbox.BackColor = SystemColors.ControlDark;
         }
 
         public void SetBackColor (Color c)

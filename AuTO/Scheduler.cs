@@ -87,10 +87,6 @@ namespace AuTO
         { 
             foreach (Match m in allMatches.Values.ToList())
             {
-                /* TODO: GET RID OF THIS WHEN MAKING LOSER BRACKET */
-                if (m.Round < 0)
-                    continue;
-
                 if (m.State.Equals("open"))
                     openMatches.Add(m);
                 else if (m.State.Equals("pending"))

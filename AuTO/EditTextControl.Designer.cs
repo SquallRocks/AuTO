@@ -44,7 +44,7 @@
             // 
             // editTextbox
             // 
-            this.editTextbox.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.editTextbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.editTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editTextbox.Location = new System.Drawing.Point(80, 8);
             this.editTextbox.Name = "editTextbox";
@@ -55,7 +55,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.editTextbox);
             this.Controls.Add(this.editLabel);

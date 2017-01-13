@@ -174,6 +174,8 @@ namespace AuTO
                 t.Type = "double elimination";
 
             setups = (int)setupUpDown.Value;
+            bool isDoubleElim = (t.Type.Equals("double elimination") ? true : false);
+
             string[] players = new string[playerListbox.Items.Count];
             for (int k = 0; k < players.Length; k++)
             {
@@ -262,8 +264,9 @@ namespace AuTO
                     return;
                 }
 
-                TournamentViewControl tourneyView = new TournamentViewControl(tournamentID, playerIDs,
-                                                                              matches, setups);
+                TournamentViewControl tourneyView = new TournamentViewControl(tournamentID, t.Name, playerIDs,
+                                                                              matches, setups, isDoubleElim);
+                tourneyView.SetBracketButtons(this.ParentForm as MainForm);
                 tourneyView.Name = "tourneyView";
                 tourneyView.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 tourneyView.Location = this.Location;
