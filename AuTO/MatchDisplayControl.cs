@@ -16,7 +16,12 @@ namespace AuTO
         private bool openOrPending;
         private TournamentViewControl masterParent;
 
-        public MatchDisplayControl(TournamentViewControl master)
+        public MatchDisplayControl ()
+        {
+            InitializeComponent();
+        }
+
+        public MatchDisplayControl (TournamentViewControl master)
         {
             InitializeComponent();
 
@@ -86,6 +91,11 @@ namespace AuTO
         public void SetPlayer2Name (string name)
         {
             player2Textbox.Text = name;
+        }
+
+        public void SetSetupLabel (string setup)
+        {
+            setupLabel.Text = setup;
         }
 
         public string GetPlayer1Name ()

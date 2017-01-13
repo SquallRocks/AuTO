@@ -156,6 +156,8 @@ namespace AuTO
 
         private async void startButton_Click(object sender, EventArgs e)
         {
+            startButton.Enabled = false;
+
             /* Not enough info to start tournament; abort */
             if (!InitialErrorCheck())
                 return;
@@ -192,6 +194,8 @@ namespace AuTO
                     DisplayClientError("Tournament with URL already exists!");
                 else if (validated == -200)
                     DisplayClientError("Unhandled error on client side.");
+
+                startButton.Enabled = true;
                 return;
             }
             else
@@ -205,6 +209,7 @@ namespace AuTO
             if (validated < 0)
             {
                 DisplayClientError("Tournament not found! Client side error.");
+                startButton.Enabled = true;
                 return;
             }
 
@@ -221,6 +226,7 @@ namespace AuTO
                 {
                     await Challonge.DeleteTournament(tournamentID);
                     DisplayClientError("Could not add player; client side error.");
+                    startButton.Enabled = true;
                     return;
                 }
                 else
@@ -241,6 +247,7 @@ namespace AuTO
             {
                 await Challonge.DeleteTournament(tournamentID);
                 DisplayClientError("Could not start; client side error.");
+                startButton.Enabled = true;
                 return;
             }
             else
@@ -251,6 +258,7 @@ namespace AuTO
                 if (matches == null)
                 {
                     DisplayClientError("Client side error retrieving matches");
+                    startButton.Enabled = true;
                     return;
                 }
 

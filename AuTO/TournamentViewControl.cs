@@ -64,7 +64,13 @@ namespace AuTO
             /* Set number of columns needed at their size */
             tourneyTablePanel.Dock = DockStyle.None;
             tourneyTablePanel.ColumnCount = rounds;
-            tourneyTablePanel.Size = new Size(rounds * 200, rounds * 155 * 2);  
+
+            /* Automatically updates size in case if MatchDisplayControl's size gets
+             * updated at some point. */
+            Point sizeDummy = new Point(new MatchDisplayControl().Width + 10,
+                                        new MatchDisplayControl().Height + 10);
+            tourneyTablePanel.Size = new Size(rounds * sizeDummy.X, 
+                                              rounds * sizeDummy.Y * 2);  
 
             /* Set column and row height/width */
             TableLayoutStyleCollection styles = tourneyTablePanel.ColumnStyles;
@@ -93,7 +99,7 @@ namespace AuTO
                 f.Margin = new Padding(0, 0, 0, 0);
                 f.AutoSize = false;
                 f.AutoScroll = true;
-                f.Size = new Size(f.Size.Width, gamesPerRound * 155);
+                f.Size = new Size(f.Size.Width, gamesPerRound * sizeDummy.Y);
                 f.FlowDirection = FlowDirection.TopDown;
                 f.WrapContents = false;
                 f.MouseDown += tourneyTablePanel_MouseDown;
@@ -112,6 +118,7 @@ namespace AuTO
                         m.SetMatchID(match.ID);
                         m.SetPlayer1Name(p1);
                         m.SetPlayer2Name(p2);
+                        m.SetSetupLabel("Pending");
 
                         m.GetSubmitButton().Click += submitButton_Click;
 
@@ -168,6 +175,7 @@ namespace AuTO
                 MatchDisplayControl mdc = matchControls[m.ID];
                 mdc.SetPlayer1Name(p1);
                 mdc.SetPlayer2Name(p2);
+                mdc.SetSetupLabel(String.Format("Setup: {0}", m.Setup));
                 mdc.IndicateOpenMatch();
 
                 /* Set match name info in upcoming match list */
