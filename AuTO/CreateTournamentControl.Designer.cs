@@ -338,7 +338,6 @@
             this.subTextbox.Name = "subTextbox";
             this.subTextbox.Size = new System.Drawing.Size(331, 30);
             this.subTextbox.TabIndex = 6;
-            this.subTextbox.Text = "austinsmash4";
             // 
             // nameTextbox
             // 

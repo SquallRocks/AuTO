@@ -85,8 +85,12 @@ namespace AuTO
         /* Separates matches into open and pending pools */
         private void InitialMatchSetup ()
         { 
-            foreach (Match m in allMatches.Values)
+            foreach (Match m in allMatches.Values.ToList())
             {
+                /* TODO: GET RID OF THIS WHEN MAKING LOSER BRACKET */
+                if (m.Round < 0)
+                    continue;
+
                 if (m.State.Equals("open"))
                     openMatches.Add(m);
                 else if (m.State.Equals("pending"))
@@ -131,10 +135,15 @@ namespace AuTO
 
         /* Updates state of matches of pending and all matches list directly from
          * Challonge */
-        public async void UpdateMatchStatesFromChallonge ()
+        public async Task<bool> UpdateMatchStatesFromChallonge ()
         {
             /* Retrieve most updated list of matches */
             Dictionary<int, Match> cm = await Challonge.RetrieveMatches(tournamentID);
+            
+            /* DEBUGGING */
+            foreach (Match m in cm.Values)
+                Console.WriteLine("{0} vs. {1} state: {2}", GetPlayerNameFromID(m.Player1ID), GetPlayerNameFromID(m.Player2ID), m.State);
+
 
             /* Using ToArray() so that we can remove items from the list while
              * iterating through it */
@@ -149,6 +158,8 @@ namespace AuTO
                     }
                 }
             }
+
+            return true;
         }
 
         /* Schedules top match from open matches and adds it to current matches.

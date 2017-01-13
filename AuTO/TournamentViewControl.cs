@@ -143,14 +143,14 @@ namespace AuTO
         /* Schedules upcoming matches and notifies user that new matches can be called
          * NOTE: So far, the notifying user portion operaetes by adding items to the upcoming
          * match list as well as changing control colors. */
-        private void ScheduleMatches ()
+        private async void ScheduleMatches ()
         {
             //matchCallingControl.ClearUpcomingMatches();
             //matchCallingControl.ClearLongMatches();
             
             /* Schedule newly opened matches and add them to matches-
              * to-call list. */
-            scheduler.UpdateMatchStatesFromChallonge();
+            await scheduler.UpdateMatchStatesFromChallonge();
             List<Match> newMatches = scheduler.ScheduleOpenMatches();
             foreach (Match m in newMatches)
             {
@@ -262,11 +262,11 @@ namespace AuTO
             }
 
             string matchName = String.Format("{0} vs. {1}", parent.GetPlayer1Name(), parent.GetPlayer2Name());
+            matchCallingControl.DeleteItemFromUpcomingMatches(matchName);
             matchCallingControl.DeleteItemFromOngoingMatches(matchName);
 
             parent.HideErrorLabel();
             parent.IndicateSubmittedMatch();
-
 
             scheduler.CloseMatch(matchID);
             ScheduleMatches();

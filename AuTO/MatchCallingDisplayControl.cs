@@ -32,18 +32,23 @@ namespace AuTO
 
         public void AddItemToUpcomingMatches (string match, int id)
         {
-            upcomingListbox.Items.Add(match);
-            matchIDs.Add(match, id);
+            if (!upcomingListbox.Items.Contains(match))
+            { 
+                upcomingListbox.Items.Add(match);
+                matchIDs.Add(match, id);
+            }
         }
 
         public void AddItemToCurrentMatches(string match)
         {
-            currentListbox.Items.Add(match);
+            if (!currentListbox.Items.Contains(match))
+                currentListbox.Items.Add(match);
         }
 
         public void AddItemToLongMatches(string match)
         {
-            longListbox.Items.Add(match);
+            if (!longListbox.Items.Contains(match))
+                longListbox.Items.Add(match);
         }
 
         public bool DeleteItemFromUpcomingMatches (string name)
