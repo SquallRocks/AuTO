@@ -18,6 +18,7 @@ namespace AuTO
         private Dictionary<int, MatchDisplayControl> matchControls;
        
         private int tournamentID;
+        private bool isDoubleElim;
         private Scheduler scheduler;
         private List<Match> winnersBracket;
         private List<Match> losersBracket;
@@ -32,11 +33,11 @@ namespace AuTO
         }
 
         public TournamentViewControl(int t_id, Dictionary<int, string> players,
-                                     Dictionary<int, Match> matches, int setups)
+                                     Dictionary<int, Match> matches, int setups, bool doubleElim)
         {
             /* DEBUGGING */
-            foreach (Match m in matches.Values)
-                Console.WriteLine("Match: {0} Round: {1} Order: {2}", m.ID, m.Round, m.PlayOrder);
+            //foreach (Match m in matches.Values)
+            //    Console.WriteLine("Match: {0} Round: {1} Order: {2}", m.ID, m.Round, m.PlayOrder);
 
             InitializeComponent();
             tableScrollPoint = new Point();
@@ -44,13 +45,17 @@ namespace AuTO
             matchCallingControl.SetMasterParent(this);
 
             tournamentID = t_id;
+            isDoubleElim = doubleElim;
             scheduler = new Scheduler(t_id, players, matches, setups);
 
             winnersBracket = new List<Match>();
             losersBracket = new List<Match>();
             scheduler.SplitMatchesByBrackets(ref winnersBracket, ref losersBracket);
 
-            SetupTournamentView(scheduler.MaxWinnerRounds, winnersBracket);
+            /* Setup tournament views for winners and losers brackets */
+            SetupTournamentView(winnerTablePanel,scheduler.MaxWinnerRounds, winnersBracket);
+            SetupTournamentView(loserTablePanel, scheduler.MaxLoserRounds, losersBracket);
+
             ScheduleMatches();
         }
 
@@ -59,23 +64,22 @@ namespace AuTO
             return tournamentID;
         }
 
-        public void SetupTournamentView (int rounds, List<Match> bracket)
+        public void SetupTournamentView (TableLayoutPanel panel, int rounds, List<Match> bracket)
         {
             /* Set number of columns needed at their size */
-            tourneyTablePanel.Dock = DockStyle.None;
-            tourneyTablePanel.ColumnCount = rounds;
+            panel.Dock = DockStyle.None;
+            panel.ColumnCount = rounds;
 
             /* Automatically updates size in case if MatchDisplayControl's size gets
              * updated at some point. */
             Point sizeDummy = new Point(new MatchDisplayControl().Width + 10,
                                         new MatchDisplayControl().Height + 10);
-            tourneyTablePanel.Size = new Size(rounds * sizeDummy.X, 
-                                              rounds * sizeDummy.Y * 2);  
+            panel.Size = new Size(rounds * sizeDummy.X, rounds * sizeDummy.Y * 2);  
 
             /* Set column and row height/width */
-            TableLayoutStyleCollection styles = tourneyTablePanel.ColumnStyles;
+            TableLayoutStyleCollection styles = panel.ColumnStyles;
             foreach (ColumnStyle c in styles)
-                c.Width = 200;
+                c.Width = sizeDummy.X;
 
             /* Add matches */
             for (int k = 0; k < rounds; k++)
@@ -83,7 +87,7 @@ namespace AuTO
                 int curRound = k + 1;
 
                 Panel p = new Panel();
-                tourneyTablePanel.Controls.Add(p, k, 1);
+                panel.Controls.Add(p, k, 1);
                 p.Dock = DockStyle.Fill;
 
                 /* Size flow panel by how many games that round has */
@@ -143,7 +147,7 @@ namespace AuTO
                 l.MouseDown += tourneyTablePanel_MouseDown;
                 l.MouseMove += tourneyTablePanel_MouseMove;
 
-                tourneyTablePanel.Controls.Add(l, k, 0);
+                panel.Controls.Add(l, k, 0);
             }
         }
 
@@ -216,10 +220,12 @@ namespace AuTO
         {
             if (e.Button == MouseButtons.Left)
             {
-                int pos = e.X + tourneyTablePanel.Left - tableScrollPoint.X;
-                pos = (int)Math.Max(pos, -tourneyTablePanel.Size.Width + 500);
+                TableLayoutPanel panel = sender as TableLayoutPanel;
+
+                int pos = e.X + panel.Left - tableScrollPoint.X;
+                pos = (int)Math.Max(pos, -panel.Size.Width + 500);
                 if (pos < 20)
-                    tourneyTablePanel.Left = pos;
+                    panel.Left = pos;
             }
         }
 
@@ -233,6 +239,26 @@ namespace AuTO
                 pos = (int)Math.Min(pos, 20);
                 if (pos > -control.Size.Height + 500)
                 control.Top = pos;
+            }
+        }
+
+        /* Displays winners bracket */
+        private void DisplayWinnersBracket ()
+        {
+            if (isDoubleElim)
+            {
+                loserTablePanel.SendToBack();
+                winnerTablePanel.BringToFront();
+            }
+        }
+
+        /* Displays losers bracket */
+        private void DisplayLosersBracket ()
+        {
+            if (isDoubleElim)
+            {
+                winnerTablePanel.SendToBack();
+                loserTablePanel.BringToFront();
             }
         }
 
