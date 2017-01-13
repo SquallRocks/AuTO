@@ -333,12 +333,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.subTextbox.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.subTextbox.Enabled = false;
             this.subTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subTextbox.Location = new System.Drawing.Point(177, 98);
             this.subTextbox.Name = "subTextbox";
             this.subTextbox.Size = new System.Drawing.Size(331, 30);
             this.subTextbox.TabIndex = 6;
+            this.subTextbox.Text = "austinsmash4";
             // 
             // nameTextbox
             // 
