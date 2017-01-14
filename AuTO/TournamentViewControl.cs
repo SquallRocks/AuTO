@@ -15,6 +15,7 @@ namespace AuTO
         #region Fields
 
         private Point tableScrollPoint;
+        private MainForm parentForm;
         private Dictionary<int, MatchDisplayControl> matchControls;
        
         private int tournamentID;
@@ -58,13 +59,21 @@ namespace AuTO
             SetupTournamentView(winnerTablePanel,scheduler.MaxWinnerRounds, winnersBracket);
             SetupTournamentView(loserTablePanel, scheduler.MaxLoserRounds, losersBracket);
 
+            winnerTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+            loserTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+
             ScheduleMatches();
+        }
+
+        public int GetTournamentID ()
+        {
+            return tournamentID;
         }
 
         public void SetBracketButtons (MainForm mainForm)
         {
+            parentForm = mainForm;
             mainForm.SetTournamentName(tournamentName);
-            mainForm.SetHeaderText(tournamentName);
 
             /* Setup bracket button functionality, if applicable. */
             if (isDoubleElim)
@@ -72,16 +81,17 @@ namespace AuTO
                 mainForm.GetWinnersButton().Click += winnersButton_Click;
                 mainForm.GetLosersButton().Click += losersButton_Click;
                 mainForm.ShowBracketButtons();
+
+                mainForm.SetHeaderText(tournamentName + " - Winner's Bracket");
             }
             else
             {
                 mainForm.HideBracketButtons();
+                mainForm.SetHeaderText(tournamentName);
             }
-        }
 
-        public int GetTournamentID ()
-        {
-            return tournamentID;
+            winnerTablePanel.Visible = true;
+            loserTablePanel.Visible = false;
         }
 
         public void SetupTournamentView (TableLayoutPanel panel, int rounds, List<Match> bracket)
@@ -95,14 +105,16 @@ namespace AuTO
 
             /* Automatically updates size in case if MatchDisplayControl's size gets
              * updated at some point. */
-            Point sizeDummy = new Point(new MatchDisplayControl().Width + 10,
+            Point sizeDummy = new Point(new MatchDisplayControl().Width + 7,
                                         new MatchDisplayControl().Height + 10);
-            panel.Size = new Size(rounds * sizeDummy.X, rounds * sizeDummy.Y * 2);  
+            panel.Size = new Size((rounds + 1) * sizeDummy.X, rounds * sizeDummy.Y * 2);  
 
             /* Set column and row height/width */
             TableLayoutStyleCollection styles = panel.ColumnStyles;
             foreach (ColumnStyle c in styles)
-                c.Width = sizeDummy.X + 5;
+            { 
+                c.SizeType = SizeType.AutoSize;
+            }
 
             /* Add matches */
             for (int k = 0; k < rounds; k++)
@@ -128,7 +140,7 @@ namespace AuTO
                 f.Size = new Size(f.Size.Width, gamesPerRound * sizeDummy.Y);
                 f.FlowDirection = FlowDirection.TopDown;
                 f.WrapContents = false;
-                f.MouseDown += tourneyTablePanel_MouseDown;
+                f.MouseDown += tablePanel_MouseDown;
                 f.MouseMove += matchView_MouseMove;
 
                 /* Add matches related to current round iteration */
@@ -165,8 +177,8 @@ namespace AuTO
                 l.TextAlign = ContentAlignment.MiddleCenter;
                 l.Margin = new Padding(0, 0, 0, 0);
                 l.Dock = DockStyle.Fill;
-                l.MouseDown += tourneyTablePanel_MouseDown;
-                l.MouseMove += tourneyTablePanel_MouseMove;
+                l.MouseDown += tablePanel_MouseDown;
+                l.MouseMove += tabelLabel_MouseMove;
 
                 panel.Controls.Add(l, k, 0);
             }
@@ -200,11 +212,12 @@ namespace AuTO
                 MatchDisplayControl mdc = matchControls[m.ID];
                 mdc.SetPlayer1Name(p1);
                 mdc.SetPlayer2Name(p2);
+                mdc.SetSetupNumber(m.Setup);
                 mdc.SetSetupLabel(String.Format("Setup: {0}", m.Setup));
                 mdc.IndicateOpenMatch();
 
                 /* Set match name info in upcoming match list */
-                string matchName = String.Format("{0} vs. {1}", p1, p2);
+                string matchName = String.Format("{0} vs. {1} - Setup: {2}", p1, p2, m.Setup);
                 matchCallingControl.AddItemToUpcomingMatches(matchName, m.ID);
             }
         }
@@ -221,8 +234,8 @@ namespace AuTO
 
             MatchDisplayControl mdc = matchControls[id];
             mdc.IndicateOngoingMatch();
-
-            string matchName = String.Format("{0} vs. {1}", mdc.GetPlayer1Name(), mdc.GetPlayer2Name());
+            string matchName = String.Format("{0} vs. {1} - Setup: {2}", mdc.GetPlayer1Name(),
+                                              mdc.GetPlayer2Name(), mdc.GetSetupNumber());
             matchCallingControl.DeleteItemFromUpcomingMatches(matchName);
             matchCallingControl.AddItemToCurrentMatches(matchName);
         }
@@ -230,14 +243,14 @@ namespace AuTO
         #region GUI Events
 
         /* Save mouse position in case if user wants to drag control */
-        private void tourneyTablePanel_MouseDown(object sender, MouseEventArgs e)
+        private void tablePanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
                 tableScrollPoint = e.Location;
         }
 
         /* When user drags mouse and left clicks, emulate dragging of horizontal scrollbar */
-        private void tourneyTablePanel_MouseMove(object sender, MouseEventArgs e)
+        private void tabelPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -247,6 +260,16 @@ namespace AuTO
                 pos = (int)Math.Max(pos, -panel.Size.Width + 500);
                 if (pos < 20)
                     panel.Left = pos;
+            }
+        }
+
+        /* When user drags mouse and left clicks, emulate dragging of horizontal scrollbar */
+        private void tabelLabel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Control panel = ((Control)sender).Parent;
+                tabelPanel_MouseMove(panel, e);
             }
         }
 
@@ -268,8 +291,9 @@ namespace AuTO
         {
             if (isDoubleElim)
             {
-                loserTablePanel.SendToBack();
-                winnerTablePanel.BringToFront();
+                parentForm.SetHeaderText(tournamentName + " - Winner's Bracket");
+                loserTablePanel.Visible = false;
+                winnerTablePanel.Visible = true;
             }
         }
 
@@ -278,8 +302,9 @@ namespace AuTO
         {
             if (isDoubleElim)
             {
-                winnerTablePanel.SendToBack();
-                loserTablePanel.BringToFront();
+                parentForm.SetHeaderText(tournamentName + " - Loser's Bracket");
+                winnerTablePanel.Visible = false;
+                loserTablePanel.Visible = true;
             }
         }
 

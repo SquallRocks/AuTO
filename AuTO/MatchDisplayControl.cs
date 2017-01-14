@@ -13,6 +13,7 @@ namespace AuTO
     public partial class MatchDisplayControl : UserControl
     {
         private int matchID;
+        private int setup;
         private bool openOrPending;
         private TournamentViewControl masterParent;
 
@@ -37,6 +38,7 @@ namespace AuTO
             submitButton.BringToFront();
 
             matchID = 0;
+            setup = 0;
             openOrPending = true;
             masterParent = master;
         }
@@ -98,6 +100,11 @@ namespace AuTO
             setupLabel.Text = setup;
         }
 
+        public void SetSetupNumber (int s)
+        {
+            setup = s;
+        }
+
         public string GetPlayer1Name ()
         {
             return player1Textbox.Text;
@@ -116,6 +123,11 @@ namespace AuTO
         public int GetPlayer2Score ()
         {
             return (int)player2UpDown.Value;
+        }
+
+        public int GetSetupNumber ()
+        {
+            return setup;
         }
 
         public void DisplayErrorLabel (string msg)

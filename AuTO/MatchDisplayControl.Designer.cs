@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.errorLabel = new System.Windows.Forms.Label();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.setupLabel = new System.Windows.Forms.Label();
             this.player2UpDown = new System.Windows.Forms.NumericUpDown();
             this.player2Textbox = new System.Windows.Forms.TextBox();
             this.player1UpDown = new System.Windows.Forms.NumericUpDown();
@@ -37,9 +40,6 @@
             this.player2Label = new System.Windows.Forms.Label();
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reportAsOngoingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setupLabel = new System.Windows.Forms.Label();
-            this.errorLabel = new System.Windows.Forms.Label();
-            this.submitButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player2UpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1UpDown)).BeginInit();
@@ -63,6 +63,46 @@
             this.mainPanel.Size = new System.Drawing.Size(180, 159);
             this.mainPanel.TabIndex = 0;
             this.mainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.errorLabel.Location = new System.Drawing.Point(3, 108);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(168, 14);
+            this.errorLabel.TabIndex = 17;
+            this.errorLabel.Text = "Could not submit; try again.";
+            // 
+            // submitButton
+            // 
+            this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.submitButton.BackColor = System.Drawing.Color.SlateGray;
+            this.submitButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submitButton.Location = new System.Drawing.Point(3, 125);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(174, 31);
+            this.submitButton.TabIndex = 16;
+            this.submitButton.Text = "Submit Scores";
+            this.submitButton.UseVisualStyleBackColor = false;
+            // 
+            // setupLabel
+            // 
+            this.setupLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.setupLabel.AutoSize = true;
+            this.setupLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setupLabel.ForeColor = System.Drawing.Color.Black;
+            this.setupLabel.Location = new System.Drawing.Point(3, 10);
+            this.setupLabel.Name = "setupLabel";
+            this.setupLabel.Size = new System.Drawing.Size(72, 17);
+            this.setupLabel.TabIndex = 15;
+            this.setupLabel.Text = "Setup: 1";
             // 
             // player2UpDown
             // 
@@ -146,46 +186,6 @@
             this.reportAsOngoingToolStripMenuItem.Text = "Report as Ongoing";
             this.reportAsOngoingToolStripMenuItem.Click += new System.EventHandler(this.reportAsOngoingToolStripMenuItem_Click);
             this.reportAsOngoingToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
-            // 
-            // setupLabel
-            // 
-            this.setupLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.setupLabel.AutoSize = true;
-            this.setupLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setupLabel.ForeColor = System.Drawing.Color.Black;
-            this.setupLabel.Location = new System.Drawing.Point(3, 10);
-            this.setupLabel.Name = "setupLabel";
-            this.setupLabel.Size = new System.Drawing.Size(72, 17);
-            this.setupLabel.TabIndex = 15;
-            this.setupLabel.Text = "Setup: 1";
-            // 
-            // errorLabel
-            // 
-            this.errorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.errorLabel.AutoSize = true;
-            this.errorLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.errorLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.errorLabel.Location = new System.Drawing.Point(3, 108);
-            this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(168, 14);
-            this.errorLabel.TabIndex = 17;
-            this.errorLabel.Text = "Could not submit; try again.";
-            // 
-            // submitButton
-            // 
-            this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.submitButton.BackColor = System.Drawing.Color.SlateGray;
-            this.submitButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(3, 125);
-            this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(174, 31);
-            this.submitButton.TabIndex = 16;
-            this.submitButton.Text = "Submit Scores";
-            this.submitButton.UseVisualStyleBackColor = false;
             // 
             // MatchDisplayControl
             // 
