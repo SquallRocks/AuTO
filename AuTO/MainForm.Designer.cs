@@ -54,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.createTournamentControl.Location = new System.Drawing.Point(149, 58);
             this.createTournamentControl.Name = "createTournamentControl";
-            this.createTournamentControl.Size = new System.Drawing.Size(1057, 564);
+            this.createTournamentControl.Size = new System.Drawing.Size(1057, 560);
             this.createTournamentControl.TabIndex = 4;
             // 
             // headerControl
@@ -66,7 +66,7 @@
             this.headerControl.Size = new System.Drawing.Size(1016, 65);
             this.headerControl.TabIndex = 3;
             // 
-            // mainForm
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,9 +74,8 @@
             this.ClientSize = new System.Drawing.Size(1166, 619);
             this.Controls.Add(this.headerControl);
             this.Controls.Add(this.menuPanel);
-            this.Name = "mainForm";
+            this.Name = "MainForm";
             this.Text = "AuTO - Automatic T.O.";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.menuPanel.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -144,7 +144,7 @@
             0});
             this.setupUpDown.Name = "setupUpDown";
             this.setupUpDown.Size = new System.Drawing.Size(63, 32);
-            this.setupUpDown.TabIndex = 19;
+            this.setupUpDown.TabIndex = 6;
             this.setupUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -218,14 +218,15 @@
             // 
             // hintLabel
             // 
-            this.hintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.hintLabel.AutoSize = true;
-            this.hintLabel.Location = new System.Drawing.Point(0, 417);
+            this.hintLabel.Location = new System.Drawing.Point(2, 369);
             this.hintLabel.Name = "hintLabel";
-            this.hintLabel.Size = new System.Drawing.Size(156, 16);
+            this.hintLabel.Size = new System.Drawing.Size(521, 64);
             this.hintLabel.TabIndex = 14;
-            this.hintLabel.Text = "* denotes required field";
+            this.hintLabel.Text = "* denotes required field\r\n\r\nTo shift seedings, select the player, hold Shift + Up" +
+    " to move the player up a seed \r\nor hold Shift + Down to move the player down a s" +
+    "eed.";
             // 
             // cancelButton
             // 
@@ -238,7 +239,7 @@
             this.cancelButton.Location = new System.Drawing.Point(346, 313);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(162, 30);
-            this.cancelButton.TabIndex = 13;
+            this.cancelButton.TabIndex = 10;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -253,7 +254,7 @@
             this.clearButton.Location = new System.Drawing.Point(177, 313);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(162, 30);
-            this.clearButton.TabIndex = 12;
+            this.clearButton.TabIndex = 9;
             this.clearButton.Text = "Clear";
             this.clearButton.UseVisualStyleBackColor = false;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
@@ -268,7 +269,7 @@
             this.doubleRD.Location = new System.Drawing.Point(362, 64);
             this.doubleRD.Name = "doubleRD";
             this.doubleRD.Size = new System.Drawing.Size(146, 20);
-            this.doubleRD.TabIndex = 11;
+            this.doubleRD.TabIndex = 3;
             this.doubleRD.TabStop = true;
             this.doubleRD.Text = "Double Elimination";
             this.doubleRD.UseVisualStyleBackColor = true;
@@ -282,7 +283,7 @@
             this.singleRD.Location = new System.Drawing.Point(177, 64);
             this.singleRD.Name = "singleRD";
             this.singleRD.Size = new System.Drawing.Size(139, 20);
-            this.singleRD.TabIndex = 10;
+            this.singleRD.TabIndex = 2;
             this.singleRD.Text = "Single Elimination";
             this.singleRD.UseVisualStyleBackColor = true;
             // 
@@ -297,7 +298,7 @@
             this.addPlayerButton.Location = new System.Drawing.Point(433, 236);
             this.addPlayerButton.Name = "addPlayerButton";
             this.addPlayerButton.Size = new System.Drawing.Size(75, 30);
-            this.addPlayerButton.TabIndex = 9;
+            this.addPlayerButton.TabIndex = 8;
             this.addPlayerButton.Text = "Add";
             this.addPlayerButton.UseVisualStyleBackColor = false;
             this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click);
@@ -312,7 +313,8 @@
             this.playerTextbox.Location = new System.Drawing.Point(177, 236);
             this.playerTextbox.Name = "playerTextbox";
             this.playerTextbox.Size = new System.Drawing.Size(249, 30);
-            this.playerTextbox.TabIndex = 8;
+            this.playerTextbox.TabIndex = 7;
+            this.playerTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.playerTextbox_KeyPress);
             // 
             // urlTextbox
             // 
@@ -324,7 +326,7 @@
             this.urlTextbox.Location = new System.Drawing.Point(177, 145);
             this.urlTextbox.Name = "urlTextbox";
             this.urlTextbox.Size = new System.Drawing.Size(331, 30);
-            this.urlTextbox.TabIndex = 7;
+            this.urlTextbox.TabIndex = 5;
             this.urlTextbox.Text = "persiatest";
             // 
             // subTextbox
@@ -337,7 +339,7 @@
             this.subTextbox.Location = new System.Drawing.Point(177, 98);
             this.subTextbox.Name = "subTextbox";
             this.subTextbox.Size = new System.Drawing.Size(331, 30);
-            this.subTextbox.TabIndex = 6;
+            this.subTextbox.TabIndex = 4;
             // 
             // nameTextbox
             // 
@@ -349,7 +351,7 @@
             this.nameTextbox.Location = new System.Drawing.Point(177, 23);
             this.nameTextbox.Name = "nameTextbox";
             this.nameTextbox.Size = new System.Drawing.Size(331, 30);
-            this.nameTextbox.TabIndex = 5;
+            this.nameTextbox.TabIndex = 1;
             this.nameTextbox.Text = "TESTING";
             // 
             // participantLabel
@@ -473,30 +475,31 @@
             this.playerListbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.playerListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.playerListbox.DisplayMember = "1. Sample";
-            this.playerListbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerListbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerListbox.FormattingEnabled = true;
-            this.playerListbox.ItemHeight = 16;
+            this.playerListbox.ItemHeight = 18;
             this.playerListbox.Location = new System.Drawing.Point(0, 0);
             this.playerListbox.Name = "playerListbox";
-            this.playerListbox.Size = new System.Drawing.Size(209, 320);
+            this.playerListbox.Size = new System.Drawing.Size(209, 306);
             this.playerListbox.TabIndex = 0;
             this.playerListbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.playerListbox_KeyDown);
             this.playerListbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.playerListbox_MouseDown);
             // 
             // startButton
             // 
-            this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.startButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.startButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.startButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.startButton.FlatAppearance.BorderSize = 5;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.startButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startButton.ForeColor = System.Drawing.Color.White;
             this.startButton.Location = new System.Drawing.Point(0, 0);
+            this.startButton.Margin = new System.Windows.Forms.Padding(0);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(209, 58);
-            this.startButton.TabIndex = 14;
-            this.startButton.Text = "Start Tournament";
+            this.startButton.TabIndex = 11;
+            this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 

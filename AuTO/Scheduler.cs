@@ -52,17 +52,15 @@ namespace AuTO
             InitialMatchSetup();
         }
         
-        /* Sorts a match based on play order, lesser numbers first
-         * i.e. (3, 5, 2, 7) => (2, 3, 5, 7)
-         */ 
+        /* Sorts a match based on play order, greater numbers first
+         * i.e. (3, 5, 2, 7) => (7, 5, 3, 2)  */
         private void SortDescendingNumbers (ref List<Match> matches)
         {
             matches.Sort((x, y) => y.PlayOrder.CompareTo(x.PlayOrder));  
         }
 
-        /* Sorts a match based on play order, greater numbers first
-         * i.e. (3, 5, 2, 7) => (7, 5, 3, 2)
-         */
+        /* Sorts a match based on play order, lesser numbers first
+         * i.e. (3, 5, 2, 7) => (2, 3, 5, 7) */ 
         private void SortAscendingNumbers(ref List<Match> matches)
         {
             matches.Sort((x, y) => x.PlayOrder.CompareTo(y.PlayOrder));
@@ -135,11 +133,6 @@ namespace AuTO
         {
             /* Retrieve most updated list of matches */
             Dictionary<int, Match> cm = await Challonge.RetrieveMatches(tournamentID);
-            
-            /* DEBUGGING */
-            foreach (Match m in cm.Values)
-                Console.WriteLine("{0} vs. {1} state: {2}", GetPlayerNameFromID(m.Player1ID), GetPlayerNameFromID(m.Player2ID), m.State);
-
 
             /* Using ToArray() so that we can remove items from the list while
              * iterating through it */
@@ -156,6 +149,66 @@ namespace AuTO
             }
 
             return true;
+        }
+
+        /* Swaps player 1's matches with player 2's in all open and pending 
+         * matches between them.
+         * Returns a list of open matches that have been updated. */
+        public List<Match> SwapPlayers (int player1ID, int player2ID)
+        {
+            List<Match> origCurrentList = currentMatches.ToList<Match>();
+            List<Match> origPendingList = pendingMatches.ToList<Match>();
+            List<Match> updatedMatches = new List<Match>();
+            
+            /* Swap open matches */
+            for (int k = 0; k < origCurrentList.Count; k++)
+            {
+                Match m = currentMatches[k];
+                if (m == null)
+                    continue;
+    
+                /* Swap player 1 into player 2's matches */
+                if (m.Player1ID == player2ID)
+                {
+                    m.Player1ID = player1ID;
+                    updatedMatches.Add(m);
+                }
+                else if (m.Player2ID == player2ID)
+                {
+                    m.Player2ID = player1ID;
+                    updatedMatches.Add(m);
+                }
+                /* Swap player 2 into player 1's matches */
+                else if (m.Player1ID == player1ID)
+                {
+                    m.Player1ID = player2ID;
+                    updatedMatches.Add(m);
+                }
+                else if (m.Player2ID == player1ID)
+                {
+                    m.Player2ID = player2ID;
+                    updatedMatches.Add(m);
+                }
+            }
+
+            /* Swap future pending matches */
+            for (int k = 0; k < origPendingList.Count; k++)
+            {
+                Match m = pendingMatches[k];
+
+                /* Swap player 1 into player 2's matches */
+                if (m.Player1ID == player2ID)
+                    m.Player1ID = player1ID;
+                else if (m.Player2ID == player2ID)
+                    m.Player2ID = player1ID;
+                /* Swap player 2 into player 1's matches */
+                else if (m.Player1ID == player1ID)
+                    m.Player1ID = player2ID;
+                else if (m.Player2ID == player1ID)
+                    m.Player2ID = player2ID;
+            }
+
+            return updatedMatches;
         }
 
         /* Schedules top match from open matches and adds it to current matches.
@@ -217,22 +270,49 @@ namespace AuTO
          * If successful, will move match from current to closed matches. */
         public async Task<bool> ReportMatch (int matchID, int p1Score, int p2Score, int winnerID)
         {
-            for (int k = 0; k < maxSetups; k++)
+            /* If match is current being played, find it so that it can be cleared if score
+             * submission is successful. */
+            int k = 0;
+            bool found = false;
+            for (; k < maxSetups; k++)
             {
                 Match m = currentMatches[k];
                 if (m != null)
                 { 
                     if (m.ID == matchID)
                     {
-                        ScoreReport s = new ScoreReport();
-                        s.Score = string.Format("{0}-{1}", p1Score, p2Score);
-                        s.WinnerID = winnerID;
-
-                        int validated = await Challonge.SubmitMatchScore(tournamentID, matchID, s);
-                        if (validated > 0)
-                            return true;
+                        found = true;
+                        break;
                     }
                 }
+            }
+
+            ScoreReport s = new ScoreReport();
+            s.Score = string.Format("{0}-{1}", p1Score, p2Score);
+            s.WinnerID = winnerID;
+
+            int validated = await Challonge.SubmitMatchScore(tournamentID, matchID, s);
+            if (validated > 0)
+            {
+                if (found)
+                    currentMatches[k] = null;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /* Checks if all matches have been played */
+        public bool CheckIfTournamentEnded ()
+        {
+            if (openMatches.Count == 0 && pendingMatches.Count == 0)
+            {
+                foreach (Match m in currentMatches)
+                    if (m != null)
+                        return false;
+
+                return true;
             }
 
             return false;

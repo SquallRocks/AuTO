@@ -56,23 +56,5 @@ namespace AuTO
         {
             headerControl.ShowBracketButtons();
         }
-
-        /* DEBUGGING */
-        /* When X button on form is clicked, deletes tournament if one was created. */
-        private async void mainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Control parent = this.Controls[1];
-            foreach (Control c in parent.Controls)
-            { 
-                if (c.Name.Equals("tourneyView"))
-                {
-                    TournamentViewControl t = c as TournamentViewControl;
-                    if (t.GetTournamentID() > 0)
-                    {
-                        await Challonge.DeleteTournament(t.GetTournamentID());
-                    }
-                }
-            }
-        }
     }
 }

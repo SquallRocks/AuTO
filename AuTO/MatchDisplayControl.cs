@@ -13,6 +13,7 @@ namespace AuTO
     public partial class MatchDisplayControl : UserControl
     {
         private int matchID;
+        private int winnerID;
         private int setup;
         private bool openOrPending;
         private TournamentViewControl masterParent;
@@ -38,6 +39,7 @@ namespace AuTO
             submitButton.BringToFront();
 
             matchID = 0;
+            winnerID = 0;
             setup = 0;
             openOrPending = true;
             masterParent = master;
@@ -103,6 +105,16 @@ namespace AuTO
         public void SetSetupNumber (int s)
         {
             setup = s;
+        }
+
+        public void SetWinnerID (int id)
+        {
+            winnerID = id;
+        }
+
+        public int GetWinnerID ()
+        {
+            return winnerID;
         }
 
         public string GetPlayer1Name ()
