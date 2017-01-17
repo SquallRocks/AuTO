@@ -20,6 +20,7 @@ namespace AuTO
         {
             InitializeComponent();
             headerControl.SetHeader("Create a Tournament");
+            currentTournament.Visible = false;
 
             tourneyName = string.Empty;
             tournamentID = 0;
@@ -34,7 +35,8 @@ namespace AuTO
         public void SetTournamentName (string name)
         {
             tourneyName = name;
-            currentTournament.Name = name;
+            currentTournament.Text = name;
+            currentTournament.Visible = true;
         }
 
         public void SetHeaderText (string text)
@@ -72,23 +74,26 @@ namespace AuTO
             headerControl.ShowBracketButtons();
         }
 
-        private void mainSplit_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
         private void label_MouseEnter(object sender, EventArgs e)
         {
-            Control c = sender as Control;
-            c.ForeColor = Color.LightGoldenrodYellow;
+            if (tournamentID != 0)
+            { 
+                Control c = sender as Control;
+                c.ForeColor = Color.LightGoldenrodYellow;
+            }
         }
 
         private void label_MouseLeave(object sender, EventArgs e)
         {
-            Control c = sender as Control;
-            c.ForeColor = Color.Black;
+            if (tournamentID != 0)
+            {
+                Control c = sender as Control;
+                c.ForeColor = Color.Black;
+            }
         }
 
+        /* Discard current tournament and make a new one.
+         * NOTE: Does not delete tourney from Challonge! */
         private void newTourneyLabel_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(tourneyName))
@@ -100,15 +105,16 @@ namespace AuTO
                                                       MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    tourneyName = string.Empty;
+                    ClearTournamentAttributes();
                     InsertNewContentControl(new CreateTournamentControl());
                 }
             }
         }
 
+        /* Switch to the tournament settings panel if there is a running tournament. */ 
         private void tourneySettingsLabel_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(tourneyName))
+            if (tournamentID != 0)
             { 
                 foreach (Control c in contentSplit.Panel2.Controls)
                 {
@@ -122,12 +128,15 @@ namespace AuTO
             }
         }
 
+        /* Switches between Tournament View Control and Tournament Settings Contrtol */
         private void currentTournament_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(tourneyName))
             {
                 TournamentViewControl tvc = null;
                 TournamentSettingsControl tsc = null;
+
+                /* First find respective controls */
                 foreach (Control c in contentSplit.Panel2.Controls)
                 {
                     if (c is TournamentViewControl)
@@ -136,7 +145,9 @@ namespace AuTO
                         tsc = c as TournamentSettingsControl;
                 }
 
-                if (tsc != null)
+                /* If the user updated any names while in settings panel, update them in the
+                 * view control. */
+                if (tsc != null && tvc != null)
                 { 
                     foreach (KeyValuePair<string, string> kvp in tsc.UpdatedNames)
                     {
@@ -145,18 +156,25 @@ namespace AuTO
 
                     tsc.UpdatedNames.Clear();
                     tsc.Visible = false;
+                    tvc.Visible = true;
                 }
-
-                tvc.Visible = true;
             }
         }
 
+        /* Remove all controls in main content panel and add one new control c. */
         public void InsertNewContentControl (Control c)
         {
             contentSplit.Panel2.Controls.Clear();
-            c.Dock = DockStyle.Fill;
             contentSplit.Panel2.Controls.Add(c);
+            c.Dock = DockStyle.Fill;
         }
 
+        /* Clears current tournament fields to make room for new one. */
+        public void ClearTournamentAttributes ()
+        {
+            tourneyName = string.Empty;
+            tournamentID = 0;
+            currentTournament.Visible = false;
+        }
     }
 }

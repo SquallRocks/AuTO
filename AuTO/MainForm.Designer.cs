@@ -30,6 +30,7 @@
         {
             this.mainSplit = new System.Windows.Forms.SplitContainer();
             this.menuTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.currentTournament = new System.Windows.Forms.Label();
             this.tourneySettingsLabel = new System.Windows.Forms.Label();
             this.newTourneyLabel = new System.Windows.Forms.Label();
             this.logoLabel = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.contentSplit = new System.Windows.Forms.SplitContainer();
             this.headerControl = new AuTO.identTemp();
             this.createTournamentControl = new AuTO.CreateTournamentControl();
-            this.currentTournament = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
@@ -68,7 +68,6 @@
             this.mainSplit.Size = new System.Drawing.Size(1166, 619);
             this.mainSplit.SplitterDistance = 190;
             this.mainSplit.TabIndex = 1;
-            this.mainSplit.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mainSplit_SplitterMoved);
             // 
             // menuTablePanel
             // 
@@ -88,6 +87,21 @@
             this.menuTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.menuTablePanel.Size = new System.Drawing.Size(185, 173);
             this.menuTablePanel.TabIndex = 7;
+            // 
+            // currentTournament
+            // 
+            this.currentTournament.AutoSize = true;
+            this.currentTournament.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.currentTournament.Font = new System.Drawing.Font("Lucida Sans Unicode", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentTournament.Location = new System.Drawing.Point(3, 114);
+            this.currentTournament.Name = "currentTournament";
+            this.currentTournament.Size = new System.Drawing.Size(179, 59);
+            this.currentTournament.TabIndex = 2;
+            this.currentTournament.Text = "Current Tournament";
+            this.currentTournament.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.currentTournament.Click += new System.EventHandler(this.currentTournament_Click);
+            this.currentTournament.MouseEnter += new System.EventHandler(this.label_MouseEnter);
+            this.currentTournament.MouseLeave += new System.EventHandler(this.label_MouseLeave);
             // 
             // tourneySettingsLabel
             // 
@@ -178,21 +192,6 @@
             this.createTournamentControl.Name = "createTournamentControl";
             this.createTournamentControl.Size = new System.Drawing.Size(972, 532);
             this.createTournamentControl.TabIndex = 8;
-            // 
-            // currentTournament
-            // 
-            this.currentTournament.AutoSize = true;
-            this.currentTournament.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.currentTournament.Font = new System.Drawing.Font("Lucida Sans Unicode", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentTournament.Location = new System.Drawing.Point(3, 114);
-            this.currentTournament.Name = "currentTournament";
-            this.currentTournament.Size = new System.Drawing.Size(179, 59);
-            this.currentTournament.TabIndex = 2;
-            this.currentTournament.Text = "Current Tournament";
-            this.currentTournament.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.currentTournament.Click += new System.EventHandler(this.currentTournament_Click);
-            this.currentTournament.MouseEnter += new System.EventHandler(this.label_MouseEnter);
-            this.currentTournament.MouseLeave += new System.EventHandler(this.label_MouseLeave);
             // 
             // MainForm
             // 
