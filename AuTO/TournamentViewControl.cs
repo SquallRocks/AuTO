@@ -76,6 +76,7 @@ namespace AuTO
         {
             parentForm = mainForm;
             mainForm.SetTournamentName(tournamentName);
+            mainForm.SetTournamentID(tournamentID);
 
             /* Setup bracket button functionality, if applicable. */
             if (isDoubleElim)
@@ -204,6 +205,18 @@ namespace AuTO
                 l.MouseMove += tabelLabel_MouseMove;
 
                 panel.Controls.Add(l, k, 0);
+            }
+        }
+
+        /* If oldName appears in any control, updates the name to newName */
+        public void UpdatePlayerName (string oldName, string newName)
+        { 
+            foreach (MatchDisplayControl mdc in matchControls.Values)
+            {
+                if (mdc.GetPlayer1Name().Equals(oldName))
+                    mdc.SetPlayer1Name(newName);
+                else if (mdc.GetPlayer2Name().Equals(oldName))
+                    mdc.SetPlayer2Name(newName);
             }
         }
 

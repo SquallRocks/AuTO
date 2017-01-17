@@ -499,7 +499,8 @@
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(209, 58);
             this.startButton.TabIndex = 11;
-            this.startButton.Text = "Start";
+            this.startButton.Text = "Start Tournament";
+            this.startButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 

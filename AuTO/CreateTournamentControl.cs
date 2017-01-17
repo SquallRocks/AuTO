@@ -257,9 +257,9 @@ namespace AuTO
 
             /* Make sure user is ready to start tournament */
             DialogResult okToStart = MessageBox.Show("Please make final changes to the tournament " + 
-                                                     "seeding on the official Challonge website. \n" +
+                                                     "seeding on the official Challonge website.\n\n" +
                                                      "Once you are satisfied with the bracket, " + 
-                                                     "press OK. \nIf you would like to delete the " +
+                                                     "press OK.\n\nIf you would like to delete the " +
                                                      "tournament and start over, press Cancel.", 
                                                      "Start Tournament", MessageBoxButtons.OKCancel);
             /* User not ready; abort tournament creation */
@@ -297,16 +297,17 @@ namespace AuTO
                         return;
                     }
 
+                    MainForm main = this.ParentForm as MainForm;
                     TournamentViewControl tourneyView = new TournamentViewControl(tournamentID, t.Name, playerIDs,
                                                                                   matches, setups, isDoubleElim);
-                    tourneyView.SetBracketButtons(this.ParentForm as MainForm);
+                    tourneyView.SetBracketButtons(main);
                     tourneyView.Name = "tourneyView";
-                    tourneyView.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                    tourneyView.Location = this.Location;
+                    tourneyView.Dock = DockStyle.Fill;
                     tourneyView.Visible = true;
                     tourneyView.BringToFront();
 
                     this.Parent.Controls.Add(tourneyView);
+                    main.SetPlayers(playerIDs);
 
                     this.Hide();
                     this.Dispose();
@@ -417,8 +418,6 @@ namespace AuTO
             }
 
             Clear();
-
-            //TOOD: Hide this control and go to a home screen once a home screen made
         }
 
         #endregion
