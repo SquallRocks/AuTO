@@ -121,7 +121,7 @@
             // 
             this.mainSplit.Panel2.Controls.Add(this.rightSplit);
             this.mainSplit.Size = new System.Drawing.Size(754, 433);
-            this.mainSplit.SplitterDistance = 541;
+            this.mainSplit.SplitterDistance = 547;
             this.mainSplit.TabIndex = 0;
             // 
             // setupUpDown
@@ -143,7 +143,7 @@
             0,
             0});
             this.setupUpDown.Name = "setupUpDown";
-            this.setupUpDown.Size = new System.Drawing.Size(63, 32);
+            this.setupUpDown.Size = new System.Drawing.Size(74, 32);
             this.setupUpDown.TabIndex = 6;
             this.setupUpDown.Value = new decimal(new int[] {
             1,
@@ -173,7 +173,7 @@
             this.successLabel.AutoSize = true;
             this.successLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.successLabel.ForeColor = System.Drawing.Color.ForestGreen;
-            this.successLabel.Location = new System.Drawing.Point(177, 346);
+            this.successLabel.Location = new System.Drawing.Point(166, 390);
             this.successLabel.Name = "successLabel";
             this.successLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.successLabel.Size = new System.Drawing.Size(70, 16);
@@ -190,7 +190,7 @@
             this.statusLabel.AutoSize = true;
             this.statusLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.ForeColor = System.Drawing.Color.Black;
-            this.statusLabel.Location = new System.Drawing.Point(177, 269);
+            this.statusLabel.Location = new System.Drawing.Point(177, 338);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.statusLabel.Size = new System.Drawing.Size(240, 16);
@@ -207,7 +207,7 @@
             this.errorLabel.AutoSize = true;
             this.errorLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.errorLabel.Location = new System.Drawing.Point(177, 346);
+            this.errorLabel.Location = new System.Drawing.Point(166, 390);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.errorLabel.Size = new System.Drawing.Size(165, 16);
@@ -220,7 +220,7 @@
             // 
             this.hintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.hintLabel.AutoSize = true;
-            this.hintLabel.Location = new System.Drawing.Point(2, 369);
+            this.hintLabel.Location = new System.Drawing.Point(2, 433);
             this.hintLabel.Name = "hintLabel";
             this.hintLabel.Size = new System.Drawing.Size(521, 64);
             this.hintLabel.TabIndex = 14;
@@ -236,7 +236,7 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cancelButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(346, 313);
+            this.cancelButton.Location = new System.Drawing.Point(357, 357);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(162, 30);
             this.cancelButton.TabIndex = 10;
@@ -251,7 +251,7 @@
             this.clearButton.FlatAppearance.BorderSize = 5;
             this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearButton.Location = new System.Drawing.Point(177, 313);
+            this.clearButton.Location = new System.Drawing.Point(177, 357);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(162, 30);
             this.clearButton.TabIndex = 9;
@@ -295,7 +295,7 @@
             this.addPlayerButton.FlatAppearance.BorderSize = 5;
             this.addPlayerButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addPlayerButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addPlayerButton.Location = new System.Drawing.Point(433, 236);
+            this.addPlayerButton.Location = new System.Drawing.Point(444, 275);
             this.addPlayerButton.Name = "addPlayerButton";
             this.addPlayerButton.Size = new System.Drawing.Size(75, 30);
             this.addPlayerButton.TabIndex = 8;
@@ -305,14 +305,15 @@
             // 
             // playerTextbox
             // 
-            this.playerTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.playerTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.playerTextbox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.playerTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerTextbox.Location = new System.Drawing.Point(177, 236);
+            this.playerTextbox.Multiline = true;
             this.playerTextbox.Name = "playerTextbox";
-            this.playerTextbox.Size = new System.Drawing.Size(249, 30);
+            this.playerTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.playerTextbox.Size = new System.Drawing.Size(260, 99);
             this.playerTextbox.TabIndex = 7;
             this.playerTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.playerTextbox_KeyPress);
             // 
@@ -325,7 +326,7 @@
             this.urlTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlTextbox.Location = new System.Drawing.Point(177, 145);
             this.urlTextbox.Name = "urlTextbox";
-            this.urlTextbox.Size = new System.Drawing.Size(331, 30);
+            this.urlTextbox.Size = new System.Drawing.Size(342, 30);
             this.urlTextbox.TabIndex = 5;
             this.urlTextbox.Text = "persiatest";
             // 
@@ -338,7 +339,7 @@
             this.subTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subTextbox.Location = new System.Drawing.Point(177, 98);
             this.subTextbox.Name = "subTextbox";
-            this.subTextbox.Size = new System.Drawing.Size(331, 30);
+            this.subTextbox.Size = new System.Drawing.Size(342, 30);
             this.subTextbox.TabIndex = 4;
             // 
             // nameTextbox
@@ -350,7 +351,7 @@
             this.nameTextbox.Font = new System.Drawing.Font("Lucida Sans Unicode", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameTextbox.Location = new System.Drawing.Point(177, 23);
             this.nameTextbox.Name = "nameTextbox";
-            this.nameTextbox.Size = new System.Drawing.Size(331, 30);
+            this.nameTextbox.Size = new System.Drawing.Size(342, 30);
             this.nameTextbox.TabIndex = 1;
             this.nameTextbox.Text = "TESTING";
             // 
@@ -433,8 +434,8 @@
             // rightSplit.Panel2
             // 
             this.rightSplit.Panel2.Controls.Add(this.startButton);
-            this.rightSplit.Size = new System.Drawing.Size(209, 433);
-            this.rightSplit.SplitterDistance = 371;
+            this.rightSplit.Size = new System.Drawing.Size(203, 433);
+            this.rightSplit.SplitterDistance = 398;
             this.rightSplit.TabIndex = 0;
             // 
             // playerSplit
@@ -451,8 +452,8 @@
             // playerSplit.Panel2
             // 
             this.playerSplit.Panel2.Controls.Add(this.playerListbox);
-            this.playerSplit.Size = new System.Drawing.Size(209, 371);
-            this.playerSplit.SplitterDistance = 46;
+            this.playerSplit.Size = new System.Drawing.Size(203, 398);
+            this.playerSplit.SplitterDistance = 65;
             this.playerSplit.TabIndex = 0;
             // 
             // listPlayerLabel
@@ -461,7 +462,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listPlayerLabel.AutoSize = true;
             this.listPlayerLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listPlayerLabel.Location = new System.Drawing.Point(32, 10);
+            this.listPlayerLabel.Location = new System.Drawing.Point(32, 36);
             this.listPlayerLabel.Name = "listPlayerLabel";
             this.listPlayerLabel.Size = new System.Drawing.Size(133, 23);
             this.listPlayerLabel.TabIndex = 0;
@@ -480,16 +481,18 @@
             this.playerListbox.ItemHeight = 18;
             this.playerListbox.Location = new System.Drawing.Point(0, 0);
             this.playerListbox.Name = "playerListbox";
-            this.playerListbox.Size = new System.Drawing.Size(209, 306);
+            this.playerListbox.Size = new System.Drawing.Size(204, 324);
             this.playerListbox.TabIndex = 0;
             this.playerListbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.playerListbox_KeyDown);
             this.playerListbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.playerListbox_MouseDown);
             // 
             // startButton
             // 
+            this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.startButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.startButton.BackColor = System.Drawing.Color.ForestGreen;
-            this.startButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.startButton.FlatAppearance.BorderSize = 5;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.startButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -497,10 +500,9 @@
             this.startButton.Location = new System.Drawing.Point(0, 0);
             this.startButton.Margin = new System.Windows.Forms.Padding(0);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(209, 58);
+            this.startButton.Size = new System.Drawing.Size(203, 30);
             this.startButton.TabIndex = 11;
             this.startButton.Text = "Start Tournament";
-            this.startButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 

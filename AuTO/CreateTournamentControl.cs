@@ -117,39 +117,46 @@ namespace AuTO
 
         private void addPlayerButton_Click(object sender, EventArgs e)
         {
-            string player = playerTextbox.Text;
+            //string player = playerTextbox.Text;
+
+            string[] manyPlayers = playerTextbox.Lines;
             int seed = playerListbox.Items.Count + 1;
    
-            if (string.IsNullOrWhiteSpace(player))
+            if (string.IsNullOrWhiteSpace(manyPlayers.ToString()))
             {
                 errorLabel.Text = "Please input a valid name.";
                 errorLabel.Visible = true;
                 return;
             }
 
-            /* Make sure player has not already been added */
-            foreach (string s in playerListbox.Items)
+            foreach (string line in manyPlayers)
             {
-                /* Get player name without seed number */
-                string[] components = s.Split('.');
-                string p = string.Join(".", components, 1, components.Length - 1);
-
-                /* Remember, there is a space after the seed number; disregard it */
-                p = p.Substring(1).ToLower();
-
-                if (p.Equals(player.ToLower()))
+                string player = line;
+                /* Make sure player has not already been added */
+                foreach (string s in playerListbox.Items)
                 {
-                    errorLabel.Text = string.Format("{0} has already been added. Challonge is not case sensitive.",
-                                                    playerTextbox.Text);
-                    errorLabel.Visible = true;
-                    return;
+                    /* Get player name without seed number */
+                    string[] components = s.Split('.');
+                    string p = string.Join(".", components, 1, components.Length - 1);
+
+                    /* Remember, there is a space after the seed number; disregard it */
+                    p = p.Substring(1).ToLower();
+
+                    if (p.Equals(player.ToLower()))
+                    {
+                        errorLabel.Text = string.Format("{0} has already been added. Challonge is not case sensitive.",
+                                                        playerTextbox.Text);
+                        errorLabel.Visible = true;
+                        return;
+                    }
                 }
+                /* At this point, player entry is valid; add it */
+                player = string.Format("{0}. {1}", seed, player);
+                playerListbox.Items.Add(player);
+                seed = playerListbox.Items.Count + 1;
+
             }
             
-            /* At this point, player entry is valid; add it */
-            player = string.Format("{0}. {1}", seed, player);
-            playerListbox.Items.Add(player);
-
             playerTextbox.Clear();
             errorLabel.Visible = false;
         }
