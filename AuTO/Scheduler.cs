@@ -214,14 +214,17 @@ namespace AuTO
         /* Schedules top match from open matches and adds it to current matches.
          * Returns list of newly scheduled matches. List is null if no matches
          * could be scheduled. */ 
-        public List<Match> ScheduleOpenMatches ()
+        public List<Match> ScheduleOpenMatches (bool sort)
         {
             /* Sort all lists before any scheduling happens; they should already
              * be sorted mostly for most of the time */
-            SortAscendingNumbers(ref openMatches);
-            SortAscendingNumbers(ref pendingMatches);
-            SortAscendingNumbers(ref closedMatches);
-            SortAscendingNumbers(ref overdueMatches);
+            if (sort)
+            { 
+                SortAscendingNumbers(ref openMatches);
+                SortAscendingNumbers(ref pendingMatches);
+                SortAscendingNumbers(ref closedMatches);
+                SortAscendingNumbers(ref overdueMatches);
+            }
 
             List<Match> matches = new List<Match>();
             for (int k = 0; k < maxSetups; k++)
@@ -261,6 +264,34 @@ namespace AuTO
                         return true;
                     }
                 }
+            }
+
+            return false;
+        }
+
+        /* Skips an open match (if it exists) and puts match in pending state */
+        public bool SkipMatch (int matchID, int setup)
+        {
+            int index = setup - 1;
+            Match m = currentMatches[index];
+
+            /* If this is the only currently available match, don't skip it */
+            int count = 0;
+            foreach (Match match in currentMatches)
+                if (match != null)
+                    ++count;
+            /* Skip if there are not enough matches to warrent a skip */
+            if (count < 2)
+                return false;
+
+            /* If match exists, skip it */
+            if (m != null && m.ID == matchID)
+            {
+                m.State = "pending";
+                pendingMatches.Add(m);
+                currentMatches[index] = null;
+
+                return true;
             }
 
             return false;

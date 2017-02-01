@@ -130,6 +130,18 @@ namespace AuTO
             }
         }
 
+        private void skipMatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (masterParent != null)
+            {
+                if (matchIDs.ContainsKey(upcomingListbox.SelectedItem.ToString()))
+                {
+                    int matchID = matchIDs[upcomingListbox.SelectedItem.ToString()];
+                    masterParent.SkipMatch(matchID);
+                }
+            }
+        }
+
         /* When user drags mouse and left clicks, emulate dragging of vertical scrollbar */
         private void listbox_MouseMove(object sender, MouseEventArgs e)
         {

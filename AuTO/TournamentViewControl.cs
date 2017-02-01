@@ -64,7 +64,7 @@ namespace AuTO
             winnerTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
             loserTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
-            ScheduleMatches();
+            ScheduleMatches(true);
         }
 
         public int GetTournamentID ()
@@ -223,7 +223,7 @@ namespace AuTO
         /* Schedules upcoming matches and notifies user that new matches can be called
          * NOTE: So far, the notifying user portion operaetes by adding items to the upcoming
          * match list as well as changing control colors. */
-        private async void ScheduleMatches ()
+        private async void ScheduleMatches (bool sort)
         {
             //matchCallingControl.ClearUpcomingMatches();
             //matchCallingControl.ClearLongMatches();
@@ -231,7 +231,7 @@ namespace AuTO
             /* Schedule newly opened matches and add them to matches-
              * to-call list. */
             await scheduler.UpdateMatchStatesFromChallonge();
-            List<Match> newMatches = scheduler.ScheduleOpenMatches();
+            List<Match> newMatches = scheduler.ScheduleOpenMatches(sort);
             foreach (Match m in newMatches)
             {
                 /* Check if match exists */
@@ -277,6 +277,31 @@ namespace AuTO
                                               mdc.GetPlayer2Name(), mdc.GetSetupNumber());
             matchCallingControl.DeleteItemFromUpcomingMatches(matchName);
             matchCallingControl.AddItemToCurrentMatches(matchName);
+        }
+
+        /* Skips match by removing it from ongoing/upcoming and puts it in pending list */
+        public void SkipMatch (int matchID)
+        {
+            if (!matchControls.ContainsKey(matchID))
+            {
+                Console.WriteLine("Match doesn't exist! Something was updated in challonge website.");
+                return;
+            }
+
+            MatchDisplayControl mdc = matchControls[matchID];
+            if (scheduler.SkipMatch(matchID, mdc.GetSetupNumber()))
+            { 
+                string matchName = String.Format("{0} vs. {1} - Setup: {2}", mdc.GetPlayer1Name(),
+                                              mdc.GetPlayer2Name(), mdc.GetSetupNumber());
+                matchCallingControl.DeleteItemFromUpcomingMatches(matchName);
+                matchCallingControl.DeleteItemFromOngoingMatches(matchName);
+
+                mdc.SetSetupNumber(-1);
+                mdc.SetSetupLabel("Skipped");
+                mdc.IndicatePendingMatch();
+
+                ScheduleMatches(false);
+            }
         }
 
         #region GUI Events
@@ -468,7 +493,7 @@ namespace AuTO
                 }
             }
 
-            ScheduleMatches();
+            ScheduleMatches(true);
         }
 
         #endregion

@@ -35,6 +35,9 @@ namespace AuTO
             player2Textbox.ForeColor = Color.Black;
             errorLabel.Visible = false;
 
+            EnableOngoingMenuItem(false);
+            EnableSkipMatchMenuItem(false);
+
             submitButton.Parent = this;
             submitButton.BringToFront();
 
@@ -62,15 +65,50 @@ namespace AuTO
         private void allControls_MouseDown(object sender, MouseEventArgs e)
         {
             /* Don't show match menu if match is ongoing or completed */
-            if (e.Button == MouseButtons.Right && openOrPending)
+            if (e.Button == MouseButtons.Right)
             {
                 rightClickMenu.Show(Cursor.Position);
             }
         }
 
+        /* Reports match as ongoing */
         private void reportAsOngoingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             masterParent.SetMatchAsOngoing(matchID);
+        }
+
+        /* Skips match */
+        private void skipMatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            masterParent.SkipMatch(matchID);
+        }
+
+        #endregion
+
+        #region Global Functions
+
+        /* Disables or Enables "Report as Ongoing" Menu Item */
+        public void EnableOngoingMenuItem (bool action)
+        {
+            reportAsOngoingToolStripMenuItem.Enabled = action;
+        }
+
+        /* Disables or Enables "Skip Match" Feature */
+        public void EnableSkipMatchMenuItem (bool action)
+        {
+            skipMatchToolStripMenuItem.Enabled = action;
+        }
+
+        /* Emulate tool item click */
+        public void EmulateReportAsOngoing ()
+        {
+            reportAsOngoingToolStripMenuItem_Click(this, new EventArgs());
+        }
+
+        /* Emulate tool item click */
+        public void EmulateSkipMatch()
+        {
+            skipMatchToolStripMenuItem_Click(this, new EventArgs());
         }
 
         #endregion
@@ -166,6 +204,9 @@ namespace AuTO
         {
             player1Textbox.BackColor = Color.Ivory;
             player2Textbox.BackColor = Color.Ivory;
+
+            EnableOngoingMenuItem(true);
+            EnableSkipMatchMenuItem(true);
         }
 
         public void IndicateOngoingMatch ()
@@ -174,6 +215,8 @@ namespace AuTO
             player2Textbox.BackColor = Color.Khaki;
 
             openOrPending = false;
+            EnableOngoingMenuItem(false);
+            EnableSkipMatchMenuItem(true);
         }
 
         public void IndicateSubmittedMatch ()
@@ -182,6 +225,8 @@ namespace AuTO
             player2Textbox.BackColor = Color.PaleGreen;
 
             openOrPending = false;
+            EnableOngoingMenuItem(false);
+            EnableSkipMatchMenuItem(false);
         }
 
         public void IndicateLongMatch ()
@@ -190,10 +235,13 @@ namespace AuTO
             player2Textbox.BackColor = Color.PaleVioletRed;
         }
 
-        public void ResetTextboxBackColor ()
+        public void IndicatePendingMatch ()
         {
             player1Textbox.BackColor = SystemColors.ControlDark;
             player2Textbox.BackColor = SystemColors.ControlDark;
+
+            EnableOngoingMenuItem(false);
+            EnableSkipMatchMenuItem(false);
         }
 
         public void SetBackColor (Color c)
@@ -203,5 +251,6 @@ namespace AuTO
         }
 
         #endregion
+
     }
 }

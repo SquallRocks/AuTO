@@ -40,6 +40,7 @@
             this.player2Label = new System.Windows.Forms.Label();
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reportAsOngoingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skipMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player2UpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1UpDown)).BeginInit();
@@ -173,9 +174,10 @@
             // rightClickMenu
             // 
             this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reportAsOngoingToolStripMenuItem});
+            this.reportAsOngoingToolStripMenuItem,
+            this.skipMatchToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(174, 26);
+            this.rightClickMenu.Size = new System.Drawing.Size(174, 70);
             this.rightClickMenu.Text = "Match Menu";
             this.rightClickMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
             // 
@@ -186,6 +188,13 @@
             this.reportAsOngoingToolStripMenuItem.Text = "Report as Ongoing";
             this.reportAsOngoingToolStripMenuItem.Click += new System.EventHandler(this.reportAsOngoingToolStripMenuItem_Click);
             this.reportAsOngoingToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
+            // 
+            // skipMatchToolStripMenuItem
+            // 
+            this.skipMatchToolStripMenuItem.Name = "skipMatchToolStripMenuItem";
+            this.skipMatchToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.skipMatchToolStripMenuItem.Text = "Skip Match";
+            this.skipMatchToolStripMenuItem.Click += new System.EventHandler(this.skipMatchToolStripMenuItem_Click);
             // 
             // MatchDisplayControl
             // 
@@ -216,5 +225,6 @@
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Label setupLabel;
+        private System.Windows.Forms.ToolStripMenuItem skipMatchToolStripMenuItem;
     }
 }

@@ -162,11 +162,16 @@ namespace AuTO
         }
 
         /* When user presses enter button when adding players, adds a player */
-        private void playerTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        private void playerTextbox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.Shift && e.KeyCode == Keys.Enter)
             {
                 addPlayerButton_Click(addPlayerButton, new EventArgs());
+
+                /* Disables adding a new line once names submitted since 
+                 * Enter key was pressed */
+                if (e.KeyCode == Keys.Enter)
+                    e.SuppressKeyPress = true;
             }
         }
 

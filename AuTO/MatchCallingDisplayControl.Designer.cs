@@ -42,6 +42,7 @@
             this.longListbox = new System.Windows.Forms.ListBox();
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reportMatchAsOngoingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skipMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
@@ -230,9 +231,10 @@
             // rightClickMenu
             // 
             this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reportMatchAsOngoingToolStripMenuItem});
+            this.reportMatchAsOngoingToolStripMenuItem,
+            this.skipMatchToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(211, 26);
+            this.rightClickMenu.Size = new System.Drawing.Size(211, 70);
             this.rightClickMenu.Text = "Upcoming Match Menu";
             // 
             // reportMatchAsOngoingToolStripMenuItem
@@ -241,6 +243,13 @@
             this.reportMatchAsOngoingToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.reportMatchAsOngoingToolStripMenuItem.Text = "Report Match as Ongoing";
             this.reportMatchAsOngoingToolStripMenuItem.Click += new System.EventHandler(this.reportMatchAsOngoingToolStripMenuItem_Click);
+            // 
+            // skipMatchToolStripMenuItem
+            // 
+            this.skipMatchToolStripMenuItem.Name = "skipMatchToolStripMenuItem";
+            this.skipMatchToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.skipMatchToolStripMenuItem.Text = "Skip Match";
+            this.skipMatchToolStripMenuItem.Click += new System.EventHandler(this.skipMatchToolStripMenuItem_Click);
             // 
             // MatchCallingDisplayControl
             // 
@@ -284,5 +293,6 @@
         private System.Windows.Forms.TableLayoutPanel longTable;
         private System.Windows.Forms.Label longLabel;
         private System.Windows.Forms.ListBox longListbox;
+        private System.Windows.Forms.ToolStripMenuItem skipMatchToolStripMenuItem;
     }
 }
