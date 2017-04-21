@@ -98,8 +98,8 @@ namespace AuTO
             prompt.Text = "Setup Number to Swap To";
 
             Label textLabel = new Label() { Left = 25, Top = 20, Text = "Setup:" };
-            NumericUpDown inputBox = new NumericUpDown() { Left = 25, Top = 50, Width = 100 };
-            Button confirmation = new Button() { Text = "Swap with: " + setup, Left = 25, Width = 100, Top = 80 };
+            NumericUpDown inputBox = new NumericUpDown() { Left = 25, Top = 50, Width = 150 };
+            Button confirmation = new Button() { Text = "Swap with: " + setup, Left = 25, Width = 150, Top = 80 };
             confirmation.Click += (sender, e) => { prompt.Close(); };
 
             inputBox.Minimum = 1;
