@@ -297,6 +297,19 @@ namespace AuTO
             return false;
         }
 
+        /* Swaps setup numbers and returns newSetupIndex's match ID*/
+        public int SwapMatch(int origSetupIndex, int newSetupIndex)
+        {
+            if (origSetupIndex >= maxSetups || newSetupIndex >= maxSetups)
+                throw new ArgumentOutOfRangeException();
+
+            Match temp = currentMatches[origSetupIndex];
+            currentMatches[origSetupIndex] = currentMatches[newSetupIndex];
+            currentMatches[newSetupIndex] = temp;
+
+            return currentMatches[origSetupIndex].ID;
+        }
+
         /* Formats match score and sends it to Challonge. 
          * If successful, will move match from current to closed matches. */
         public async Task<bool> ReportMatch (int matchID, int p1Score, int p2Score, int winnerID)
@@ -347,6 +360,12 @@ namespace AuTO
             }
 
             return false;
+        }
+
+        /* Returns maximum number of setups tourney has */
+        public int GetMaxSetups ()
+        {
+            return maxSetups;
         }
 
         /* Retrieves player's name from their ID */

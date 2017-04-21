@@ -83,6 +83,36 @@ namespace AuTO
             masterParent.SkipMatch(matchID);
         }
 
+        /* Changes setup */
+        private void changeSetupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int setupToSwapWith = SwapSetupDialog();
+            masterParent.SwapSetups(matchID, setup, setupToSwapWith);
+        }
+
+        private int SwapSetupDialog ()
+        {
+            Form prompt = new Form();
+            prompt.Width = 200;
+            prompt.Height = 150;
+            prompt.Text = "Setup Number to Swap To";
+
+            Label textLabel = new Label() { Left = 25, Top = 20, Text = "Setup:" };
+            NumericUpDown inputBox = new NumericUpDown() { Left = 25, Top = 50, Width = 100 };
+            Button confirmation = new Button() { Text = "Swap with: " + setup, Left = 25, Width = 100, Top = 80 };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+
+            inputBox.Minimum = 1;
+            inputBox.Maximum = masterParent.GetMaxSetups();
+
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(inputBox);
+            prompt.ShowDialog();
+
+            return (int)inputBox.Value;
+        }
+
         #endregion
 
         #region Global Functions
@@ -99,6 +129,12 @@ namespace AuTO
             skipMatchToolStripMenuItem.Enabled = action;
         }
 
+        /* Disables or Enables "Change Setup" Feature */
+        public void EnableChangeSetuphMenuItem(bool action)
+        {
+            changeSetupToolStripMenuItem.Enabled = action;
+        }
+
         /* Emulate tool item click */
         public void EmulateReportAsOngoing ()
         {
@@ -109,6 +145,12 @@ namespace AuTO
         public void EmulateSkipMatch()
         {
             skipMatchToolStripMenuItem_Click(this, new EventArgs());
+        }
+
+        /* Emulate tool item click */
+        public void EmulateChangeSetup()
+        {
+            changeSetupToolStripMenuItem_Click(this, new EventArgs());
         }
 
         #endregion
@@ -207,6 +249,7 @@ namespace AuTO
 
             EnableOngoingMenuItem(true);
             EnableSkipMatchMenuItem(true);
+            EnableChangeSetuphMenuItem(true);
         }
 
         public void IndicateOngoingMatch ()
@@ -217,6 +260,7 @@ namespace AuTO
             openOrPending = false;
             EnableOngoingMenuItem(false);
             EnableSkipMatchMenuItem(true);
+            EnableChangeSetuphMenuItem(true);
         }
 
         public void IndicateSubmittedMatch ()
@@ -227,6 +271,7 @@ namespace AuTO
             openOrPending = false;
             EnableOngoingMenuItem(false);
             EnableSkipMatchMenuItem(false);
+            EnableChangeSetuphMenuItem(false);
         }
 
         public void IndicateLongMatch ()
@@ -242,6 +287,7 @@ namespace AuTO
 
             EnableOngoingMenuItem(false);
             EnableSkipMatchMenuItem(false);
+            EnableChangeSetuphMenuItem(false);
         }
 
         public void SetBackColor (Color c)

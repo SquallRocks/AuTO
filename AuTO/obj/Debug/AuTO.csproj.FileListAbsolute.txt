@@ -25,5 +25,4 @@ C:\Users\Persia\AuTO\AuTO\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Persia\AuTO\AuTO\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.exe
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.pdb
-C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.csprojResolveAssemblyReference.cache
 C:\Users\Persia\AuTO\AuTO\obj\Debug\AuTO.TournamentSettingsControl.resources

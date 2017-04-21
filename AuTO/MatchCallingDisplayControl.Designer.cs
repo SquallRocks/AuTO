@@ -43,6 +43,7 @@
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reportMatchAsOngoingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
@@ -232,9 +233,10 @@
             // 
             this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reportMatchAsOngoingToolStripMenuItem,
-            this.skipMatchToolStripMenuItem});
+            this.skipMatchToolStripMenuItem,
+            this.changeSetupToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(211, 70);
+            this.rightClickMenu.Size = new System.Drawing.Size(211, 92);
             this.rightClickMenu.Text = "Upcoming Match Menu";
             // 
             // reportMatchAsOngoingToolStripMenuItem
@@ -250,6 +252,13 @@
             this.skipMatchToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.skipMatchToolStripMenuItem.Text = "Skip Match";
             this.skipMatchToolStripMenuItem.Click += new System.EventHandler(this.skipMatchToolStripMenuItem_Click);
+            // 
+            // changeSetupToolStripMenuItem
+            // 
+            this.changeSetupToolStripMenuItem.Name = "changeSetupToolStripMenuItem";
+            this.changeSetupToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.changeSetupToolStripMenuItem.Text = "Change Setup";
+            this.changeSetupToolStripMenuItem.Click += new System.EventHandler(this.changeSetupToolStripMenuItem_Click);
             // 
             // MatchCallingDisplayControl
             // 
@@ -294,5 +303,6 @@
         private System.Windows.Forms.Label longLabel;
         private System.Windows.Forms.ListBox longListbox;
         private System.Windows.Forms.ToolStripMenuItem skipMatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeSetupToolStripMenuItem;
     }
 }
