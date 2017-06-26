@@ -41,6 +41,7 @@
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reportAsOngoingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player2UpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1UpDown)).BeginInit();
@@ -175,9 +176,10 @@
             // 
             this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reportAsOngoingToolStripMenuItem,
-            this.skipMatchToolStripMenuItem});
+            this.skipMatchToolStripMenuItem,
+            this.changeSetupToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(174, 70);
+            this.rightClickMenu.Size = new System.Drawing.Size(174, 92);
             this.rightClickMenu.Text = "Match Menu";
             this.rightClickMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
             // 
@@ -195,6 +197,13 @@
             this.skipMatchToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.skipMatchToolStripMenuItem.Text = "Skip Match";
             this.skipMatchToolStripMenuItem.Click += new System.EventHandler(this.skipMatchToolStripMenuItem_Click);
+            // 
+            // changeSetupToolStripMenuItem
+            // 
+            this.changeSetupToolStripMenuItem.Name = "changeSetupToolStripMenuItem";
+            this.changeSetupToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.changeSetupToolStripMenuItem.Text = "Change Setup";
+            this.changeSetupToolStripMenuItem.Click += new System.EventHandler(this.changeSetupToolStripMenuItem_Click);
             // 
             // MatchDisplayControl
             // 
@@ -226,5 +235,6 @@
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Label setupLabel;
         private System.Windows.Forms.ToolStripMenuItem skipMatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeSetupToolStripMenuItem;
     }
 }

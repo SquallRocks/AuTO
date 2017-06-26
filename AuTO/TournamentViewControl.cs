@@ -67,9 +67,16 @@ namespace AuTO
             ScheduleMatches(true);
         }
 
+        /* Returns tournament ID */
         public int GetTournamentID ()
         {
             return tournamentID;
+        }
+
+        /* Returns max setups tournament has */
+        public int GetMaxSetups ()
+        {
+            return scheduler.GetMaxSetups();
         }
 
         public void SetBracketButtons (MainForm mainForm)
@@ -302,6 +309,67 @@ namespace AuTO
 
                 ScheduleMatches(false);
             }
+        }
+
+        /* Swaps setup between matches */
+        public void SwapSetups(int origMatchID, int origSetup, int newSetup)
+        {
+            if (!matchControls.ContainsKey(origMatchID))
+            {
+                Console.WriteLine("Match doesn't exist! Something was updated in challonge website.");
+                return;
+            }
+
+            try
+            { 
+                int newSetupMatchID = scheduler.SwapMatch(origSetup - 1, newSetup - 1);
+                MatchDisplayControl o_mdc = matchControls[origMatchID];
+                MatchDisplayControl n_mdc = matchControls[newSetupMatchID];
+
+                string match1Name = String.Format("{0} vs. {1} - Setup: {2}", o_mdc.GetPlayer1Name(),
+                                                   o_mdc.GetPlayer2Name(), o_mdc.GetSetupNumber());
+                string match2Name = String.Format("{0} vs. {1} - Setup: {2}", n_mdc.GetPlayer1Name(),
+                                                   n_mdc.GetPlayer2Name(), n_mdc.GetSetupNumber());
+                string newMatch1Name = String.Format("{0} vs. {1} - Setup: {2}", o_mdc.GetPlayer1Name(),
+                                                      o_mdc.GetPlayer2Name(), newSetup);
+                string newMatch2Name = String.Format("{0} vs. {1} - Setup: {2}", o_mdc.GetPlayer1Name(),
+                                                      o_mdc.GetPlayer2Name(), origSetup);
+
+                if (matchCallingControl.DeleteItemFromUpcomingMatches(match1Name))
+                    matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, origMatchID);
+    
+                if (matchCallingControl.DeleteItemFromUpcomingMatches(match2Name))
+                    matchCallingControl.AddItemToUpcomingMatches(newMatch2Name, newSetupMatchID);
+
+                if (matchCallingControl.DeleteItemFromOngoingMatches(match1Name))
+                    matchCallingControl.AddItemToCurrentMatches(newMatch1Name);
+
+                if (matchCallingControl.DeleteItemFromOngoingMatches(match2Name))
+                    matchCallingControl.AddItemToCurrentMatches(newMatch2Name);
+
+                o_mdc.SetSetupNumber(newSetup);
+                n_mdc.SetSetupNumber(origSetup);
+
+                o_mdc.SetSetupLabel("Setup: " + newSetup);
+                n_mdc.SetSetupLabel("Setup: " + origSetup);
+            }
+
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Console to swap with is not correct range - range check is inaccurate");
+                return;
+            }
+        }
+
+        public void SwapSetupFromCallingList (int matchID)
+        { 
+            if (!matchControls.ContainsKey(matchID))
+            {
+                Console.WriteLine("Wrong match ID obtained; Dictionary could be wrong");
+                return;
+            }
+
+            matchControls[matchID].EmulateChangeSetup();
         }
 
         #region GUI Events
