@@ -232,7 +232,7 @@ namespace AuTO
 
             HttpResponseMessage response = await client.GetAsync(tURL);
             string result = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
+//            Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
 
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -265,11 +265,22 @@ namespace AuTO
                     if (order == -200)
                         return null;
 
+                    string score = t.SelectToken("scores_csv").ToString();
+
+                    int winnerID = RetrieveIntFromString(t.SelectToken("winner_id").ToString());
+                    if (winnerID == -200)
+                        return null;
+
+                    string underwayAt = t.SelectToken("underway_at").ToString();
+
                     m.ID = id;
                     m.Player1ID = p1ID;
                     m.Player2ID = p2ID;
                     m.Round = round;
                     m.State = t.SelectToken("state").ToString();
+                    m.Score = score;
+                    m.WinnerID = winnerID;
+                    m.UnderwayAt = underwayAt;
                     m.PlayOrder = order;
                     matches.Add(m.ID, m);
                 }

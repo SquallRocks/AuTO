@@ -171,6 +171,16 @@ namespace AuTO
             player2Textbox.Text = name;
         }
 
+        public void SetPlayer1Score(int score)
+        {
+            player1UpDown.Value = score;
+        }
+
+        public void SetPlayer2Score(int score)
+        {
+            player2UpDown.Value = score;
+        }
+
         public void SetSetupLabel (string setup)
         {
             setupLabel.Text = setup;

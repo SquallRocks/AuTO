@@ -50,7 +50,24 @@ namespace AuTO
 
             InitialMatchSetup();
         }
-        
+
+        public void SyncSchedulerWithChallonge(Dictionary<int, Match> newMatches)
+        {
+            allMatches = newMatches;
+
+            /* DEBUGGING */
+            //foreach (Match m in matches.Values)
+            //    Console.WriteLine("Match: {0} Round: {1} Order: {2}", m.ID, m.Round, m.PlayOrder);
+
+            openMatches.Clear();
+            pendingMatches.Clear();
+            closedMatches.Clear();
+            overdueMatches.Clear();
+            currentMatches = new Match[maxSetups];
+
+            InitialMatchSetup();
+        }
+
         /* Sorts a match based on play order, greater numbers first
          * i.e. (3, 5, 2, 7) => (7, 5, 3, 2)  */
         private void SortDescendingNumbers (ref List<Match> matches)
@@ -88,6 +105,8 @@ namespace AuTO
                     openMatches.Add(m);
                 else if (m.State.Equals("pending"))
                     pendingMatches.Add(m);
+                else if (m.State.Equals("complete"))
+                    closedMatches.Add(m);
                 else
                     Console.WriteLine("There's another state we did not know of");
             }

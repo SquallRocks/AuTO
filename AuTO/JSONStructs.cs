@@ -47,6 +47,15 @@ namespace AuTO
         [JsonProperty("suggested_play_order")]
         public int PlayOrder;
 
+        [JsonProperty("scores_csv")]
+        public string Score;
+
+        [JsonProperty("winner_id")]
+        public int WinnerID;
+
+        [JsonProperty("underway_at")]
+        public string UnderwayAt;
+
         public int Setup;
     }
 

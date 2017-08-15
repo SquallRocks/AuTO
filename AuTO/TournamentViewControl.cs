@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AuTO
@@ -64,6 +59,37 @@ namespace AuTO
             winnerTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
             loserTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
+            ScheduleMatches(true);
+        }
+
+        private async void SyncWithChallonge()
+        {
+            Dictionary<int, Match> matches = await Challonge.RetrieveMatches(tournamentID);
+            if (matches == null)
+            {
+                DialogResult error = MessageBox.Show("Could not retrieve matches", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            scheduler.SyncSchedulerWithChallonge(matches);
+
+            matchControls.Clear();
+            winnersBracket.Clear();
+            losersBracket.Clear();
+            scheduler.SplitMatchesByBrackets(ref winnersBracket, ref losersBracket);
+
+            /* Setup tournament views for winners and losers brackets */
+            winnerTablePanel.Controls.Clear();
+            loserTablePanel.Controls.Clear();
+
+            SetupTournamentView(winnerTablePanel, scheduler.MaxWinnerRounds, winnersBracket);
+            SetupTournamentView(loserTablePanel, scheduler.MaxLoserRounds, losersBracket);
+
+            winnerTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+            loserTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+
+            matchCallingControl.ClearUpcomingMatches();
+            matchCallingControl.ClearCurrentMatches();
             ScheduleMatches(true);
         }
 
@@ -165,7 +191,32 @@ namespace AuTO
                         m.SetMatchID(match.ID);
                         m.SetPlayer1Name(p1);
                         m.SetPlayer2Name(p2);
-                        m.SetSetupLabel("Pending");
+
+                        if (match.State.Equals("complete"))
+                        {
+                            /* Set MatchDisplayControl match finished attributes */
+                            if (!string.IsNullOrEmpty(match.Score))
+                            {
+                                string[] scores = match.Score.Split('-');
+                                int s1 = int.Parse(scores[0]);
+                                int s2 = int.Parse(scores[1]);
+
+                                m.SetPlayer1Score(s1);
+                                m.SetPlayer2Score(s2);
+                            }
+
+                            m.SetWinnerID(match.WinnerID);
+                            m.HideErrorLabel();
+                            m.IndicateSubmittedMatch();
+                        }
+                        else if (match.State.Equals("open") && !string.IsNullOrEmpty(match.UnderwayAt))
+                        {
+                            m.IndicateOngoingMatch();
+                        }
+                        else
+                        {
+                            m.SetSetupLabel("Pending");
+                        }
 
                         m.GetSubmitButton().Click += submitButton_Click;
 
@@ -250,6 +301,7 @@ namespace AuTO
 
                 string p1 = scheduler.GetPlayerNameFromID(m.Player1ID);
                 string p2 = scheduler.GetPlayerNameFromID(m.Player2ID);
+                string matchName = String.Format("{0} vs. {1} - Setup: {2}", p1, p2, m.Setup);
 
                 /* Set MatchDisplayControl information */
                 MatchDisplayControl mdc = matchControls[m.ID];
@@ -257,11 +309,18 @@ namespace AuTO
                 mdc.SetPlayer2Name(p2);
                 mdc.SetSetupNumber(m.Setup);
                 mdc.SetSetupLabel(String.Format("Setup: {0}", m.Setup));
-                mdc.IndicateOpenMatch();
 
-                /* Set match name info in upcoming match list */
-                string matchName = String.Format("{0} vs. {1} - Setup: {2}", p1, p2, m.Setup);
-                matchCallingControl.AddItemToUpcomingMatches(matchName, m.ID);
+                if (!string.IsNullOrEmpty(m.UnderwayAt))
+                {
+                    mdc.IndicateOngoingMatch();
+                    matchCallingControl.AddItemToCurrentMatches(matchName);
+                }
+
+                else
+                {
+                    mdc.IndicateOpenMatch();
+                    matchCallingControl.AddItemToUpcomingMatches(matchName, m.ID);
+                }
             }
 
             if (scheduler.CheckIfTournamentEnded())
@@ -596,5 +655,10 @@ namespace AuTO
         }
 
         #endregion
+
+        private void syncButton_Click(object sender, EventArgs e)
+        {
+            SyncWithChallonge();
+        }
     }
 }

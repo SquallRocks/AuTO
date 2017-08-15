@@ -32,6 +32,7 @@
             this.mainSplit = new System.Windows.Forms.SplitContainer();
             this.loserTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.winnerTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.syncButton = new System.Windows.Forms.Button();
             this.matchCallingControl = new AuTO.MatchCallingDisplayControl();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
@@ -90,7 +91,7 @@
             // 
             this.winnerTablePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.winnerTablePanel.ColumnCount = 1;
-            this.winnerTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 856F));
+            this.winnerTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 866F));
             this.winnerTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.winnerTablePanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.winnerTablePanel.Location = new System.Drawing.Point(0, 0);
@@ -103,6 +104,21 @@
             this.winnerTablePanel.TabIndex = 0;
             this.winnerTablePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tablePanel_MouseDown);
             this.winnerTablePanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabelPanel_MouseMove);
+            // 
+            // syncButton
+            // 
+            this.syncButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.syncButton.BackColor = System.Drawing.Color.DarkOrange;
+            this.syncButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.syncButton.Font = new System.Drawing.Font("Lucida Sans Unicode", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.syncButton.Location = new System.Drawing.Point(16, 576);
+            this.syncButton.Name = "syncButton";
+            this.syncButton.Size = new System.Drawing.Size(209, 41);
+            this.syncButton.TabIndex = 3;
+            this.syncButton.Text = "Sync w/Challonge";
+            this.syncButton.UseVisualStyleBackColor = false;
+            this.syncButton.Click += new System.EventHandler(this.syncButton_Click);
             // 
             // matchCallingControl
             // 
@@ -118,6 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.syncButton);
             this.Controls.Add(this.mainPanel);
             this.Name = "TournamentViewControl";
             this.Size = new System.Drawing.Size(1086, 634);
@@ -137,5 +154,6 @@
         private System.Windows.Forms.SplitContainer mainSplit;
         private MatchCallingDisplayControl matchCallingControl;
         private System.Windows.Forms.TableLayoutPanel loserTablePanel;
+        private System.Windows.Forms.Button syncButton;
     }
 }
