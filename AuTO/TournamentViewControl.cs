@@ -323,41 +323,58 @@ namespace AuTO
             try
             { 
                 int newSetupMatchID = scheduler.SwapMatch(origSetup - 1, newSetup - 1);
-                MatchDisplayControl o_mdc = matchControls[origMatchID];
-                MatchDisplayControl n_mdc = matchControls[newSetupMatchID];
 
-                string match1Name = String.Format("{0} vs. {1} - Setup: {2}", o_mdc.GetPlayer1Name(),
-                                                   o_mdc.GetPlayer2Name(), o_mdc.GetSetupNumber());
-                string match2Name = String.Format("{0} vs. {1} - Setup: {2}", n_mdc.GetPlayer1Name(),
-                                                   n_mdc.GetPlayer2Name(), n_mdc.GetSetupNumber());
-                string newMatch1Name = String.Format("{0} vs. {1} - Setup: {2}", o_mdc.GetPlayer1Name(),
-                                                      o_mdc.GetPlayer2Name(), newSetup);
-                string newMatch2Name = String.Format("{0} vs. {1} - Setup: {2}", o_mdc.GetPlayer1Name(),
-                                                      o_mdc.GetPlayer2Name(), origSetup);
+                MatchDisplayControl mdc1 = matchControls[origMatchID];
 
-                if (matchCallingControl.DeleteItemFromUpcomingMatches(match1Name))
-                    matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, origMatchID);
-    
-                if (matchCallingControl.DeleteItemFromUpcomingMatches(match2Name))
-                    matchCallingControl.AddItemToUpcomingMatches(newMatch2Name, newSetupMatchID);
+                string match1Name = String.Format("{0} vs. {1} - Setup: {2}", mdc1.GetPlayer1Name(),
+                    mdc1.GetPlayer2Name(), mdc1.GetSetupNumber());
 
-                if (matchCallingControl.DeleteItemFromOngoingMatches(match1Name))
-                    matchCallingControl.AddItemToCurrentMatches(newMatch1Name);
+                /* If there are actual matches to swap, swap them from all places */
+                if (newSetupMatchID != -666)
+                {
+                    MatchDisplayControl mdc2 = matchControls[newSetupMatchID];
 
-                if (matchCallingControl.DeleteItemFromOngoingMatches(match2Name))
-                    matchCallingControl.AddItemToCurrentMatches(newMatch2Name);
+                    string match2Name = String.Format("{0} vs. {1} - Setup: {2}", mdc2.GetPlayer1Name(),
+                        mdc2.GetPlayer2Name(), mdc2.GetSetupNumber());
+                    string newMatch1Name = String.Format("{0} vs. {1} - Setup: {2}", mdc2.GetPlayer1Name(),
+                        mdc2.GetPlayer2Name(), newSetup);
+                    string newMatch2Name = String.Format("{0} vs. {1} - Setup: {2}", mdc1.GetPlayer1Name(),
+                        mdc1.GetPlayer2Name(), origSetup);
 
-                o_mdc.SetSetupNumber(newSetup);
-                n_mdc.SetSetupNumber(origSetup);
+                    if (matchCallingControl.DeleteItemFromUpcomingMatches(match1Name))
+                        matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, origMatchID);
 
-                o_mdc.SetSetupLabel("Setup: " + newSetup);
-                n_mdc.SetSetupLabel("Setup: " + origSetup);
+                    if (matchCallingControl.DeleteItemFromUpcomingMatches(match2Name))
+                        matchCallingControl.AddItemToUpcomingMatches(newMatch2Name, newSetupMatchID);
+
+                    if (matchCallingControl.DeleteItemFromOngoingMatches(match1Name))
+                        matchCallingControl.AddItemToCurrentMatches(newMatch1Name);
+
+                    if (matchCallingControl.DeleteItemFromOngoingMatches(match2Name))
+                        matchCallingControl.AddItemToCurrentMatches(newMatch2Name);
+
+                    mdc2.SetSetupNumber(origSetup);
+                    mdc2.SetSetupLabel("Setup: " + origSetup); 
+                }
+                else
+                {
+                    string newMatch1Name = String.Format("{0} vs. {1} - Setup: {2}", mdc1.GetPlayer1Name(),
+                        mdc1.GetPlayer2Name(), newSetup);
+
+                    if (matchCallingControl.DeleteItemFromUpcomingMatches(match1Name))
+                        matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, origMatchID);
+
+                    if (matchCallingControl.DeleteItemFromOngoingMatches(match1Name))
+                        matchCallingControl.AddItemToCurrentMatches(newMatch1Name);
+                }
+
+                mdc1.SetSetupNumber(newSetup);
+                mdc1.SetSetupLabel("Setup: " + newSetup);
             }
 
             catch (ArgumentOutOfRangeException e)
             {
                 Console.WriteLine("Console to swap with is not correct range - range check is inaccurate");
-                return;
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AuTO
@@ -307,7 +306,7 @@ namespace AuTO
             currentMatches[origSetupIndex] = currentMatches[newSetupIndex];
             currentMatches[newSetupIndex] = temp;
 
-            return currentMatches[origSetupIndex].ID;
+            return currentMatches[origSetupIndex] != null ? currentMatches[origSetupIndex].ID : -666;
         }
 
         /* Formats match score and sends it to Challonge. 
