@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace AuTO
 {
@@ -198,7 +190,7 @@ namespace AuTO
                 t.Type = "double elimination";
 
             setups = (int)setupUpDown.Value;
-            bool isDoubleElim = (t.Type.Equals("double elimination") ? true : false);
+            bool isDoubleElim = t.Type.Equals("double elimination");
 
             string[] players = new string[playerListbox.Items.Count];
             for (int k = 0; k < players.Length; k++)
@@ -251,7 +243,7 @@ namespace AuTO
                 if (validated < 0)
                 {
                     await Challonge.DeleteTournament(tournamentID);
-                    DisplayClientError("Could not add player; client side error.");
+                    DisplayClientError(String.Format("Could not add player {0}; client side error.", p.Name));
                     startButton.Enabled = true;
                     return;
                 }
@@ -299,8 +291,6 @@ namespace AuTO
                 }
                 else
                 {
-                    DisplayClientSuccess("Tournament successfully started!", 10);
-
                     Dictionary<int, Match> matches = await Challonge.RetrieveMatches(tournamentID);
                     if (matches == null)
                     {
@@ -308,6 +298,8 @@ namespace AuTO
                         startButton.Enabled = true;
                         return;
                     }
+
+                    DisplayClientSuccess("Tournament successfully started!", 10);
 
                     MainForm main = this.ParentForm as MainForm;
                     TournamentViewControl tourneyView = new TournamentViewControl(tournamentID, t.Name, playerIDs,

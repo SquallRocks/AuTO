@@ -180,7 +180,7 @@ namespace AuTO
             Uri tURL = new Uri(String.Format("{0}/tournaments/{1}/start.json",
                                BASE_URL, t_id));
 
-            HttpResponseMessage response = await client.PostAsJsonAsync(tURL, new Tournament());
+            HttpResponseMessage response = await client.PostAsync(tURL, new StringContent(string.Empty));
             string result = await response.Content.ReadAsStringAsync();
             //Console.WriteLine("RESULT: \n{0}", result);
 
@@ -232,7 +232,7 @@ namespace AuTO
 
             HttpResponseMessage response = await client.GetAsync(tURL);
             string result = await response.Content.ReadAsStringAsync();
-            //Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
+            Console.WriteLine("RESULT FROM GET TOURNAMENT: \n{0}", result);
 
             if (!response.IsSuccessStatusCode)
                 return null;
