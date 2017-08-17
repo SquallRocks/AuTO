@@ -114,10 +114,19 @@
             this.player2UpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player2UpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player2UpDown.Location = new System.Drawing.Point(141, 77);
+            this.player2UpDown.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.player2UpDown.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.player2UpDown.Name = "player2UpDown";
             this.player2UpDown.Size = new System.Drawing.Size(36, 29);
             this.player2UpDown.TabIndex = 11;
-            this.player2UpDown.ValueChanged += new System.EventHandler(this.player2UpDown_ValueChanged);
             this.player2UpDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
             // 
             // player2Textbox
@@ -142,10 +151,19 @@
             this.player1UpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player1UpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.player1UpDown.Location = new System.Drawing.Point(141, 33);
+            this.player1UpDown.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.player1UpDown.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.player1UpDown.Name = "player1UpDown";
             this.player1UpDown.Size = new System.Drawing.Size(36, 29);
             this.player1UpDown.TabIndex = 9;
-            this.player1UpDown.ValueChanged += new System.EventHandler(this.player1UpDown_ValueChanged);
             this.player1UpDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
             // 
             // player1Textbox
@@ -179,7 +197,7 @@
             this.skipMatchToolStripMenuItem,
             this.changeSetupToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(174, 92);
+            this.rightClickMenu.Size = new System.Drawing.Size(174, 70);
             this.rightClickMenu.Text = "Match Menu";
             this.rightClickMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.allControls_MouseDown);
             // 

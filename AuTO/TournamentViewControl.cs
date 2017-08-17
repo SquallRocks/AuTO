@@ -197,9 +197,13 @@ namespace AuTO
                             /* Set MatchDisplayControl match finished attributes */
                             if (!string.IsNullOrEmpty(match.Score))
                             {
-                                string[] scores = match.Score.Split('-');
-                                int s1 = int.Parse(scores[0]);
-                                int s2 = int.Parse(scores[1]);
+                                int s1, s2;
+                                string[] scores = match.Score.Split(new [] {'-'}, StringSplitOptions.RemoveEmptyEntries);
+
+                                /* Parsing is different is cores are negative */
+                                s1 = match.Score[0] == '-' ? int.Parse("-" + scores[0]) : int.Parse(scores[0]);
+                                s2 = match.Score[2] == '-' || match.Score[3] == '-' ? int.Parse("-" + scores[1]) : 
+                                                                                      int.Parse(scores[1]);
 
                                 m.SetPlayer1Score(s1);
                                 m.SetPlayer2Score(s2);
@@ -371,8 +375,8 @@ namespace AuTO
         }
 
         /* Swaps setup between matches */
-        public void SwapSetups(int origMatchID, int origSetup, int newSetup)
-        {
+        public void SwapSetups(int origMatchID, int setup1, int setup2)
+         {
             if (!matchControls.ContainsKey(origMatchID))
             {
                 Console.WriteLine("Match doesn't exist! Something was updated in challonge website.");
@@ -381,7 +385,7 @@ namespace AuTO
 
             try
             { 
-                int newSetupMatchID = scheduler.SwapMatch(origSetup - 1, newSetup - 1);
+                int newSetupMatchID = scheduler.SwapMatch(setup1 - 1, setup2 - 1);
 
                 MatchDisplayControl mdc1 = matchControls[origMatchID];
 
@@ -396,15 +400,15 @@ namespace AuTO
                     string match2Name = String.Format("{0} vs. {1} - Setup: {2}", mdc2.GetPlayer1Name(),
                         mdc2.GetPlayer2Name(), mdc2.GetSetupNumber());
                     string newMatch1Name = String.Format("{0} vs. {1} - Setup: {2}", mdc2.GetPlayer1Name(),
-                        mdc2.GetPlayer2Name(), newSetup);
+                        mdc2.GetPlayer2Name(), setup1);
                     string newMatch2Name = String.Format("{0} vs. {1} - Setup: {2}", mdc1.GetPlayer1Name(),
-                        mdc1.GetPlayer2Name(), origSetup);
+                        mdc1.GetPlayer2Name(), setup2);
 
                     if (matchCallingControl.DeleteItemFromUpcomingMatches(match1Name))
-                        matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, origMatchID);
+                        matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, newSetupMatchID);
 
                     if (matchCallingControl.DeleteItemFromUpcomingMatches(match2Name))
-                        matchCallingControl.AddItemToUpcomingMatches(newMatch2Name, newSetupMatchID);
+                        matchCallingControl.AddItemToUpcomingMatches(newMatch2Name, origMatchID);
 
                     if (matchCallingControl.DeleteItemFromOngoingMatches(match1Name))
                         matchCallingControl.AddItemToCurrentMatches(newMatch1Name);
@@ -412,23 +416,23 @@ namespace AuTO
                     if (matchCallingControl.DeleteItemFromOngoingMatches(match2Name))
                         matchCallingControl.AddItemToCurrentMatches(newMatch2Name);
 
-                    mdc2.SetSetupNumber(origSetup);
-                    mdc2.SetSetupLabel("Setup: " + origSetup); 
+                    mdc2.SetSetupNumber(setup1);
+                    mdc2.SetSetupLabel("Setup: " + setup1); 
                 }
                 else
                 {
                     string newMatch1Name = String.Format("{0} vs. {1} - Setup: {2}", mdc1.GetPlayer1Name(),
-                        mdc1.GetPlayer2Name(), newSetup);
+                        mdc1.GetPlayer2Name(), setup2);
 
                     if (matchCallingControl.DeleteItemFromUpcomingMatches(match1Name))
-                        matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, origMatchID);
+                        matchCallingControl.AddItemToUpcomingMatches(newMatch1Name, newSetupMatchID);
 
                     if (matchCallingControl.DeleteItemFromOngoingMatches(match1Name))
                         matchCallingControl.AddItemToCurrentMatches(newMatch1Name);
                 }
 
-                mdc1.SetSetupNumber(newSetup);
-                mdc1.SetSetupLabel("Setup: " + newSetup);
+                mdc1.SetSetupNumber(setup2);
+                mdc1.SetSetupLabel("Setup: " + setup2);
             }
 
             catch (ArgumentOutOfRangeException e)
