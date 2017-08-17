@@ -16,10 +16,10 @@ Currently, it allows tournament creation and showcases match data designed for t
 •	Matches can be deferred until later
 •	Easily identify which matches have yet to be played, which ones are currently playing, and which ones have finished
 •	Allows users to change already-recorded match outcomes
+•	Sync with Challonge to update scores and matches
 
 ***Future Goals***
 
-•	Allow TOs to sync AuTO to Challonge after tournament created
 •	Create mobile companion app for players to report scores without having to contact TO
 •	Alert TO when matches are taking too long (usually happens because players forget to report scores)
 •	Automatically compute ELO and Power Rankings
