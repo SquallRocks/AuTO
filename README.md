@@ -18,6 +18,10 @@ Currently, it allows tournament creation and showcases match data designed for t
 •	Allows users to change already-recorded match outcomes
 •	Sync with Challonge to update scores and matches
 
+***Currently in Progress***
+
+•	Simplyfing UI
+
 ***Future Goals***
 
 •	Create mobile companion app for players to report scores without having to contact TO
